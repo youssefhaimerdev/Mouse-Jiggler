@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block private/utility files
+Disallow: /sw.js
+
+# Sitemap location
+Sitemap: https://stayawake.app/sitemap.xml

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <style>
+      .bg { fill: #16A34A; }
+      .dot { fill: white; transform-origin: 16px 16px; }
+      .ring { fill: none; stroke: white; stroke-width: 1.5; opacity: 0; transform-origin: 16px 16px; }
+      .dot { animation: wiggle 1.6s ease-in-out infinite; }
+      .ring { animation: pulse 1.6s ease-out infinite; }
+      @keyframes wiggle {
+        0%,100% { transform: translate(0,0); }
+        25%      { transform: translate(2px,-1px); }
+        50%      { transform: translate(-1px,2px); }
+        75%      { transform: translate(-2px,-1px); }
+      }
+      @keyframes pulse {
+        0%   { opacity:0.8; transform:scale(0.6); }
+        80%  { opacity:0; transform:scale(1.4); }
+        100% { opacity:0; transform:scale(1.4); }
+      }
+    </style>
+  </defs>
+  <!-- Background -->
+  <rect class="bg" width="32" height="32" rx="8"/>
+  <!-- Pulse ring -->
+  <circle class="ring" cx="16" cy="16" r="7"/>
+  <!-- Center dot -->
+  <circle class="dot" cx="16" cy="16" r="5"/>
+  <!-- Corner dots (mouse cursor indicators) -->
+  <circle fill="rgba(255,255,255,0.4)" cx="8"  cy="8"  r="2"/>
+  <circle fill="rgba(255,255,255,0.4)" cx="24" cy="8"  r="2"/>
+  <circle fill="rgba(255,255,255,0.4)" cx="8"  cy="24" r="2"/>
+  <circle fill="rgba(255,255,255,0.4)" cx="24" cy="24" r="2"/>
+</svg>

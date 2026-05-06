@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>How a Mouse Jiggler Works — Wake Lock API, Idle Detection & WFH Tools Explained</title>
+  <meta name="description" content="Learn exactly how browser-based mouse jigglers work, why computers go idle, how remote monitoring software detects inactivity, and how StayAwake keeps you online.">
+  <meta name="keywords" content="how does a mouse jiggler work, browser wake lock api, computer idle detection, prevent computer sleep, remote work monitoring, keep slack active">
+
+  <link rel="canonical" href="https://stayawake.app/how-it-works.html">
+
+  <meta property="og:title" content="How a Mouse Jiggler Works — Technical Explainer">
+  <meta property="og:description" content="Deep dive into how browser-based mouse jigglers prevent idle detection, with Wake Lock API, canvas animation, and pointer event simulation explained.">
+  <meta property="og:url" content="https://stayawake.app/how-it-works.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="StayAwake">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How a Mouse Jiggler Works — Technical Explainer">
+  <meta name="twitter:description" content="Exactly how browser-based mouse jigglers prevent idle detection. Wake Lock API, canvas animation, and pointer events explained.">
+
+  <link rel="alternate" hreflang="en" href="https://stayawake.app/how-it-works.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+  </script>
+
+  <!-- JSON-LD: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How a Mouse Jiggler Works — Wake Lock API, Idle Detection & Browser Techniques",
+    "description": "A detailed explanation of how browser-based mouse jigglers prevent computer idle detection using Wake Lock API, canvas animation loops, and pointer event simulation.",
+    "author": {
+      "@type": "Organization",
+      "name": "StayAwake"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "StayAwake",
+      "url": "https://stayawake.app"
+    },
+    "mainEntityOfPage": "https://stayawake.app/how-it-works.html",
+    "datePublished": "2025-01-01",
+    "dateModified": "2025-01-01"
+  }
+  </script>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://stayawake.app/" },
+      { "@type": "ListItem", "position": 2, "name": "How It Works", "item": "https://stayawake.app/how-it-works.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <span class="nav__logo-icon" aria-hidden="true">
+        <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5"/></svg>
+      </span>
+      StayAwake
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Jiggler</a></li>
+      <li><a href="how-it-works.html" class="active">How It Works</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="alternatives.html">Alternatives</a></li>
+    </ul>
+    <div class="nav__right">
+      <button class="theme-toggle" id="theme-btn" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="nav__mobile" id="nav-mobile">
+  <a href="index.html">🖱 Jiggler Tool</a>
+  <a href="how-it-works.html">⚙️ How It Works</a>
+  <a href="faq.html">❓ FAQ</a>
+  <a href="alternatives.html">📊 Alternatives</a>
+  <a href="about.html">ℹ️ About</a>
+</div>
+
+<main>
+  <!-- AD: header leaderboard -->
+  <!-- ADSENSE: leaderboard 728x90 — replace with AdSense code -->
+  <div class="ad-wrap" aria-hidden="true">
+    <div class="ad-placeholder ad--leaderboard">728 × 90 — Header Leaderboard Ad</div>
+  </div>
+
+  <!-- Page hero -->
+  <div class="page-hero fade-up">
+    <div class="container--narrow">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>How It Works</span>
+      </nav>
+      <div class="page-hero__label">Technical guide</div>
+      <h1 class="page-hero__title">How a Browser Mouse Jiggler Works</h1>
+      <p class="page-hero__desc">Why computers go idle, how monitoring software detects inactivity, and the three browser techniques StayAwake uses to keep you active.</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="section">
+    <div class="container--narrow prose fade-up-2">
+
+      <p class="lead">The average office worker loses 45 minutes per week to unnecessary re-logins caused by screen locks. For remote workers, the problem is compounded: your Slack goes Away, your manager notices, and suddenly you're explaining why you were "offline" for 12 minutes during a deep-focus work session. A mouse jiggler solves this — and understanding how it works helps you use it confidently.</p>
+
+      <h2>Why Computers Go Idle: The Operating System Timer</h2>
+      <p>Every modern operating system — Windows, macOS, and Linux — maintains an <strong>idle timer</strong>. This timer measures the number of seconds since your last qualifying input event: a mouse movement, a keyboard press, or a touch event. When the timer reaches a threshold you've configured (or your employer has set via Group Policy), the OS takes action: it dims the display, locks the screen, suspends the session, or reduces CPU performance.</p>
+      <p>The default thresholds vary: Windows often defaults to 5 minutes for lock and 15 minutes for sleep. macOS defaults to 2 minutes for display sleep. Corporate-managed devices are frequently set more aggressively — sometimes as little as 90 seconds — to comply with security policies.</p>
+      <p>The key insight is this: <strong>the idle timer is reset by hardware input events from your mouse and keyboard</strong>. This is exactly the mechanism that a mouse jiggler exploits — it generates synthetic activity that continuously resets the timer.</p>
+
+      <h2>How Remote Monitoring Software Detects "Away" Status</h2>
+      <p>Applications like Slack, Microsoft Teams, and Zoom don't implement their own idle detection. Instead, they query the operating system directly. On Windows, Teams calls <code>GetLastInputInfo()</code>. On macOS, it queries <code>IOHIDGetParameter</code>. Both return the system's idle time — the same timer we discussed above.</p>
+      <p>When this value exceeds the app's threshold (typically 5 minutes for Slack and Teams), the app changes your presence status from Active to Away. This status is then visible to all of your colleagues and managers in real time.</p>
+      <p>Some advanced employee monitoring tools go further, tracking active window time, keystroke frequency, and mouse movement velocity. However, the majority of corporate tools — including Teams, Slack, and Zoom — rely exclusively on the OS idle timer, which is exactly what a mouse jiggler targets.</p>
+
+      <!-- AD mid-content -->
+      <!-- ADSENSE: rectangle 336x280 mid-content — replace with AdSense code -->
+      <div class="ad-wrap" aria-hidden="true">
+        <div class="ad-placeholder ad--rect">336 × 280 — Mid-Content Ad</div>
+      </div>
+
+      <h2>The Three Techniques StayAwake Uses</h2>
+
+      <h3>1. Wake Lock API (Chrome &amp; Edge on HTTPS)</h3>
+      <p>The <strong>Screen Wake Lock API</strong> is a modern web standard that allows a web page to request that the operating system keep the display active. When StayAwake calls <code>navigator.wakeLock.request('screen')</code>, the browser forwards this request to the OS, which prevents the screen from dimming or turning off for as long as the Wake Lock is held.</p>
+      <p>This is the most direct and reliable method available in a browser. It works even when the tab is backgrounded or minimized, because the Wake Lock is held at the OS level, not the rendering thread level. The catch: it requires HTTPS and is currently supported in Chromium-based browsers (Chrome 84+, Edge 84+). Firefox and Safari do not yet implement the full API.</p>
+
+      <h3>2. Canvas Animation Loop</h3>
+      <p>For browsers without Wake Lock support, and as a supplementary layer in all browsers, StayAwake runs a continuous <code>requestAnimationFrame</code> loop on an invisible 2×2 pixel HTML canvas element. This element is positioned off-screen and rendered with near-zero opacity, making it invisible to the user.</p>
+      <p>The animation loop continuously modifies a single pixel's color value — a trivial change that nonetheless keeps the browser's rendering engine active and prevents the browser from entering a low-power suspended state. On most operating systems, an active browser rendering loop generates enough CPU activity to prevent the idle timer from reaching its threshold.</p>
+
+      <h3>3. Pointer Event Simulation</h3>
+      <p>At your chosen interval (every 30 seconds, 1 minute, 2 minutes, or 5 minutes), StayAwake dispatches a synthetic <code>MouseEvent</code> of type <code>mousemove</code> on the document. The event moves the simulated cursor position by ±1 pixel in alternating directions, creating a micro-oscillation that is invisible to the human eye but detectable as input activity.</p>
+      <p>This technique is the most direct emulation of physical mouse movement and is effective across all browsers. It is used as a fallback in Firefox and Safari, and as a redundant layer in Chrome and Edge alongside the Wake Lock API.</p>
+
+      <!-- AD second position -->
+      <!-- ADSENSE: rectangle 336x280 — replace with AdSense code -->
+      <div class="ad-wrap" aria-hidden="true">
+        <div class="ad-placeholder ad--rect">336 × 280 — Content Ad</div>
+      </div>
+
+      <h2>Why a Browser-Based Jiggler Is Safer Than Software</h2>
+      <p>Downloadable mouse jiggler software must install itself on your device, often requiring administrative privileges. On a corporate-managed laptop, this is frequently blocked by endpoint protection software like CrowdStrike, Defender for Endpoint, or Jamf. Even if installation succeeds, the process appears in your system's running process list — visible to IT monitoring tools.</p>
+      <p>StayAwake runs entirely within your web browser. It creates no files on your device. It does not appear in the Windows Task Manager process list or macOS Activity Monitor as a separate process. From your operating system's perspective, it is simply a browser tab — indistinguishable from reading a news article or watching a video.</p>
+
+      <h2>Limitations to Be Aware Of</h2>
+      <p>No browser-based mouse jiggler is perfect. Here are the honest limitations:</p>
+      <ul>
+        <li><strong>Deep sleep / hibernation:</strong> If your OS is configured to hibernate (not just sleep) after inactivity, the Wake Lock API may not prevent it on all systems. Canvas animation and pointer events generally suffice for sleep prevention.</li>
+        <li><strong>Advanced monitoring software:</strong> Some enterprise tools (Teramind, ActivTrak) analyze typing patterns and keystroke velocity. These cannot be fooled by a browser-based jiggler, as they track actual keyboard input, not OS idle state.</li>
+        <li><strong>Tab must remain open:</strong> The browser tab must stay open (though it can be minimized). Closing the tab stops all jiggling techniques immediately.</li>
+        <li><strong>Corporate proxy blocking:</strong> In rare cases, company proxy rules might block access to specific websites. In this situation, consider downloading a simple offline version or using an alternative.</li>
+      </ul>
+
+      <h2>Is Using a Mouse Jiggler Ethical?</h2>
+      <p>This is a fair question, and the answer depends on context. StayAwake is designed for use cases where idle detection creates a false picture of your activity — for example, when you're reading a long document, on a phone call, or thinking deeply without touching your keyboard. In these cases, the OS idle timer misrepresents your real work state, and a jiggler corrects for that.</p>
+      <p>We do not condone using StayAwake to deceive employers while not working. Use it responsibly, in alignment with your organization's remote work policy. Many companies have no policy specifically covering browser-based productivity tools, but when in doubt, check with your manager or HR team.</p>
+
+      <div class="mt-48 text-center">
+        <p style="font-size:14px;color:var(--text-3);margin-bottom:16px;">Ready to try it?</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="index.html" class="btn btn--primary">Use the Free Jiggler →</a>
+          <a href="faq.html" class="btn btn--outline">Read FAQ</a>
+          <a href="alternatives.html" class="btn btn--outline">Compare Alternatives</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AD footer -->
+  <!-- ADSENSE: leaderboard 728x90 footer — replace with AdSense code -->
+  <div class="ad-wrap" aria-hidden="true">
+    <div class="ad-placeholder ad--leaderboard">728 × 90 — Footer Leaderboard Ad</div>
+  </div>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="display:inline-flex;margin-bottom:10px;">
+          <span class="nav__logo-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>
+          StayAwake
+        </a>
+        <p>Free browser-based mouse jiggler for WFH workers.</p>
+      </div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="index.html">Mouse Jiggler</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="alternatives.html">Compare</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 StayAwake. Free forever.</span>
+      <span><a href="privacy-policy.html">Privacy</a> · <a href="about.html">About</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ADSENSE MOBILE STICKY — replace with AdSense anchor ad code -->
+<div class="ad-placeholder ad--mobile-sticky" aria-hidden="true">320 × 50 Mobile Sticky Ad</div>
+
+<script>if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));</script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
