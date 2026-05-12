@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /sw.js
 Disallow: /vercel.json
-Sitemap: https://stayawake.app/sitemap.xml
+Sitemap: https://keepawake.app/sitemap.xml

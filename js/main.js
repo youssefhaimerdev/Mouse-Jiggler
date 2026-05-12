@@ -1,4 +1,4 @@
-/* main.js — StayAwake v2 shared utilities */
+/* main.js — KeepAwake v2 shared utilities */
 (function () {
   'use strict';
 
@@ -9,7 +9,7 @@
   document.addEventListener('DOMContentLoaded', function () {
 
     /* ── Theme ──────────────────────────────────── */
-    var THEME_KEY = 'sa-theme';
+    var THEME_KEY = 'ka-theme';
     function applyTheme(t) {
       document.documentElement.setAttribute('data-theme', t);
       localStorage.setItem(THEME_KEY, t);
@@ -85,7 +85,7 @@
 
   /* Apply theme immediately to avoid flash */
   (function () {
-    var t = localStorage.getItem('sa-theme') ||
+    var t = localStorage.getItem('ka-theme') ||
       (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', t);
   })();

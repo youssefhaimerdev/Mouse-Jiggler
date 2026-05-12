@@ -1,5 +1,5 @@
-/* StayAwake v2 — Service Worker */
-const CACHE = 'stayawake-v2';
+/* KeepAwake v2 — Service Worker */
+const CACHE = 'keepawake-v1';
 const PRECACHE = [
   '/', '/index.html', '/how-it-works.html', '/faq.html',
   '/alternatives.html', '/about.html', '/privacy-policy.html',

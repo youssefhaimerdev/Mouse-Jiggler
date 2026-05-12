@@ -2,10 +2,10 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Privacy Policy — StayAwake Mouse Jiggler</title>
-<meta name="description" content="StayAwake privacy policy. We collect no personal data. All jiggling runs in your browser. GDPR and CCPA compliant. Full disclosure of GA4, AdSense and PiP CDN use.">
+<title>Privacy Policy — KeepAwake Mouse Jiggler</title>
+<meta name="description" content="KeepAwake privacy policy. We collect no personal data. All jiggling runs in your browser. GDPR and CCPA compliant. Full disclosure of GA4, AdSense and PiP CDN use.">
 <meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://stayawake.app/privacy-policy.html">
+<link rel="canonical" href="https://keepawake.app/privacy-policy.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="css/style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -14,7 +14,7 @@
 <body>
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
-    <a href="index.html" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.5"><circle cx="8" cy="8" r="3" fill="white" stroke="none"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2"/></svg></span>StayAwake</a>
+    <a href="index.html" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.5"><circle cx="8" cy="8" r="3" fill="white" stroke="none"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2"/></svg></span>KeepAwake</a>
     <ul class="nav__links"><li><a href="index.html">Jiggler</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="alternatives.html">Alternatives</a></li></ul>
     <div class="nav__right">
       <button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
@@ -37,10 +37,10 @@
   <div class="section"><div class="container--narrow prose">
 
     <h2>Overview</h2>
-    <p>StayAwake ("we", "us") operates <strong>https://stayawake.app</strong>. This policy explains how we handle information. Short version: <strong>all jiggling techniques run entirely in your browser — we never see what you enter or what your computer does.</strong></p>
+    <p>KeepAwake ("we", "us") operates <strong>https://keepawake.app</strong>. This policy explains how we handle information. Short version: <strong>all jiggling techniques run entirely in your browser — we never see what you enter or what your computer does.</strong></p>
 
     <h2>Information We Do NOT Collect</h2>
-    <p>StayAwake does not collect or store:</p>
+    <p>KeepAwake does not collect or store:</p>
     <ul>
       <li>Your name, email address, or any personally identifiable information</li>
       <li>Your IP address (Google Analytics is configured with IP anonymization)</li>
@@ -61,10 +61,10 @@
     <h2>Browser APIs Used — Privacy Implications</h2>
 
     <h3>Screen Wake Lock API</h3>
-    <p>When you click Start, StayAwake calls <code>navigator.wakeLock.request('screen')</code>. This is a browser-to-OS call that prevents screen dimming. No data is transmitted over the network. The Wake Lock is released immediately when you click Stop or close the tab.</p>
+    <p>When you click Start, KeepAwake calls <code>navigator.wakeLock.request('screen')</code>. This is a browser-to-OS call that prevents screen dimming. No data is transmitted over the network. The Wake Lock is released immediately when you click Stop or close the tab.</p>
 
     <h3>Picture-in-Picture</h3>
-    <p>StayAwake creates a 2×2 pixel animated canvas and streams it as a video via the browser's PiP API. This process is entirely local — no video data is transmitted to any server. The PiP window contains only a tiny color-cycling pixel, completely invisible in practice.</p>
+    <p>KeepAwake creates a 2×2 pixel animated canvas and streams it as a video via the browser's PiP API. This process is entirely local — no video data is transmitted to any server. The PiP window contains only a tiny color-cycling pixel, completely invisible in practice.</p>
 
     <h3>AudioContext</h3>
     <p>An AudioContext generates a 40Hz sine wave at 0.0001 gain (effectively silent) using your device's audio system. This is processed entirely locally by your browser's Web Audio API. No audio is recorded or transmitted.</p>
@@ -73,31 +73,31 @@
     <p>A Web Worker is created from an inline Blob URL to run a background heartbeat timer. The worker contains no tracking code and communicates only with the main page JavaScript. It is destroyed when you stop the jiggler or close the tab.</p>
 
     <h2>Local Storage</h2>
-    <p>StayAwake stores one item in your browser's localStorage: <code>sa-theme</code> — your light/dark mode preference. This never leaves your device and is never transmitted to our servers.</p>
+    <p>KeepAwake stores one item in your browser's localStorage: <code>sa-theme</code> — your light/dark mode preference. This never leaves your device and is never transmitted to our servers.</p>
 
     <h2>Cookies</h2>
-    <p>StayAwake sets no first-party tracking cookies. Google Analytics and AdSense set their own cookies per Google's policy. You may disable cookies in your browser settings without affecting the jiggler functionality.</p>
+    <p>KeepAwake sets no first-party tracking cookies. Google Analytics and AdSense set their own cookies per Google's policy. You may disable cookies in your browser settings without affecting the jiggler functionality.</p>
 
     <h2>Third-Party Resources</h2>
     <p>We load fonts from Google Fonts (fonts.googleapis.com / fonts.gstatic.com). These requests are preconnected with <code>crossorigin</code> to minimise data sharing. Google Fonts logs basic request data per their privacy policy.</p>
 
     <h2>GDPR Rights (EU/EEA Users)</h2>
-    <p>You have rights to access, portability, erasure, and objection to processing under GDPR. Since we collect no personal data directly, most rights are satisfied by default. For Google's data, refer to Google's GDPR resources. Contact: <a href="mailto:hello@stayawake.app">hello@stayawake.app</a>.</p>
+    <p>You have rights to access, portability, erasure, and objection to processing under GDPR. Since we collect no personal data directly, most rights are satisfied by default. For Google's data, refer to Google's GDPR resources. Contact: <a href="mailto:hello@keepawake.app">hello@keepawake.app</a>.</p>
 
     <h2>CCPA Rights (California Residents)</h2>
-    <p>We do not sell personal information. Contact: <a href="mailto:hello@stayawake.app">hello@stayawake.app</a>.</p>
+    <p>We do not sell personal information. Contact: <a href="mailto:hello@keepawake.app">hello@keepawake.app</a>.</p>
 
     <h2>Children's Privacy</h2>
-    <p>StayAwake is not directed at children under 13. We do not knowingly collect information from children.</p>
+    <p>KeepAwake is not directed at children under 13. We do not knowingly collect information from children.</p>
 
     <h2>Security</h2>
-    <p>StayAwake is served exclusively over HTTPS. All traffic between your browser and our servers is encrypted. All jiggling techniques run client-side and establish no server connections during operation.</p>
+    <p>KeepAwake is served exclusively over HTTPS. All traffic between your browser and our servers is encrypted. All jiggling techniques run client-side and establish no server connections during operation.</p>
 
     <h2>Changes</h2>
     <p>We may update this policy periodically. Changes will be posted here with a revised date.</p>
 
     <h2>Contact</h2>
-    <p><a href="mailto:hello@stayawake.app">hello@stayawake.app</a></p>
+    <p><a href="mailto:hello@keepawake.app">hello@keepawake.app</a></p>
 
     <div class="mt-32"><a href="index.html" class="btn btn--primary">Back to the Jiggler →</a></div>
   </div></div>
@@ -106,12 +106,12 @@
 <footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer__inner">
-      <div class="footer__brand"><a href="index.html" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>StayAwake</a><p>Free browser mouse jiggler. No data. No tracking. Free forever.</p></div>
+      <div class="footer__brand"><a href="index.html" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>Free browser mouse jiggler. No data. No tracking. Free forever.</p></div>
       <div class="footer__col"><h4>Tools</h4><ul><li><a href="index.html">Mouse Jiggler</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="alternatives.html">Compare</a></li></ul></div>
       <div class="footer__col"><h4>Help</h4><ul><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div>
       <div class="footer__col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li></ul></div>
     </div>
-    <div class="footer__bottom"><span>© 2025 StayAwake.</span><span><a href="privacy-policy.html">Privacy</a> · <a href="about.html">About</a></span></div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake.</span><span><a href="privacy-policy.html">Privacy</a> · <a href="about.html">About</a></span></div>
   </div>
 </footer>
 <script>if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));</script>

@@ -1,5 +1,5 @@
 /* ============================================================
-   jiggler.js — StayAwake v2
+   jiggler.js — KeepAwake v2
    Techniques (in priority order):
    1. Screen Wake Lock API        — prevents OS screen sleep directly
    2. Picture-in-Picture Video    — floating video window, forces display active
@@ -305,7 +305,7 @@
     }, 500);
 
     updateTechUI();
-    document.title = '🟢 Running — StayAwake';
+    document.title = '🟢 Running — KeepAwake';
     window.gaEvent('jiggler_started', {
       wakelock: techs.wakelock,
       audio:    techs.audio,
@@ -327,7 +327,7 @@
     if (intervalId) { clearInterval(intervalId); intervalId = null; }
 
     updateTechUI();
-    document.title = 'StayAwake — Free Online Mouse Jiggler';
+    document.title = 'KeepAwake — Free Mouse Jiggler';
     window.gaEvent('jiggler_stopped', { duration_seconds: duration });
   }
 
