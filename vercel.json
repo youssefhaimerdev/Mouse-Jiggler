@@ -7,6 +7,13 @@
     { "source": "/how",          "destination": "/how-it-works",     "permanent": true },
     { "source": "/compare",      "destination": "/alternatives",     "permanent": true }
   ],
+  "routes": [
+    {
+      "src": "/sitemap.xml",
+      "headers": { "Content-Type": "application/xml; charset=utf-8" },
+      "dest": "/sitemap.xml"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -25,6 +32,6 @@
     { "source": "/sw.js",      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }, { "key": "Service-Worker-Allowed", "value": "/" }] },
     { "source": "/favicon.svg","headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }] },
     { "source": "/(.*)\\.html","headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }] },
-    { "source": "/sitemap.xml","headers": [{ "key": "Content-Type", "value": "application/xml" }, { "key": "Cache-Control", "value": "public, max-age=86400" }] }
+    { "source": "/sitemap.xml","headers": [{ "key": "Content-Type", "value": "application/xml; charset=utf-8" }, { "key": "Cache-Control", "value": "public, max-age=86400" }] }
   ]
 }
