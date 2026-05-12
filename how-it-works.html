@@ -5,33 +5,33 @@
 <title>How a Browser Mouse Jiggler Works — Wake Lock, PiP & Teams Idle Detection Explained</title>
 <meta name="description" content="Learn exactly how browser mouse jigglers keep Teams green, why computers go idle, how Wake Lock API and Picture-in-Picture work, and what actually prevents Teams from showing Away.">
 <meta name="keywords" content="how mouse jiggler works, wake lock api browser, keep teams status active, prevent teams away, picture in picture keep awake, computer idle detection teams, microsoft teams away fix, browser mouse mover how it works">
-<link rel="canonical" href="https://keepawake.app/how-it-works.html">
-<meta property="og:title" content="How a Browser Mouse Jiggler Works — Technical Deep Dive"><meta property="og:description" content="Wake Lock, PiP, AudioContext — exactly how each technique keeps Teams green and prevents idle detection."><meta property="og:url" content="https://keepawake.app/how-it-works.html"><meta property="og:type" content="article"><meta property="og:site_name" content="KeepAwake">
+<link rel="canonical" href="https://keepawake.app/how-it-works">
+<meta property="og:title" content="How a Browser Mouse Jiggler Works — Technical Deep Dive"><meta property="og:description" content="Wake Lock, PiP, AudioContext — exactly how each technique keeps Teams green and prevents idle detection."><meta property="og:url" content="https://keepawake.app/how-it-works"><meta property="og:type" content="article"><meta property="og:site_name" content="KeepAwake">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How Browser Mouse Jigglers Work — Teams Idle Detection Explained">
-<link rel="alternate" hreflang="en" href="https://keepawake.app/how-it-works.html">
+<link rel="alternate" hreflang="en" href="https://keepawake.app/how-it-works">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="css/style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How a Browser Mouse Jiggler Works — Wake Lock, PiP & Teams Idle Detection Explained","description":"A detailed technical explanation of how browser-based mouse jigglers keep Microsoft Teams status active using Wake Lock API, Picture-in-Picture video, AudioContext, Web Worker, and Canvas animation.","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"},"mainEntityOfPage":"https://keepawake.app/how-it-works.html","datePublished":"2025-01-01","dateModified":"2025-06-01"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://keepawake.app/"},{"@type":"ListItem","position":2,"name":"How It Works","item":"https://keepawake.app/how-it-works.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How a Browser Mouse Jiggler Works — Wake Lock, PiP & Teams Idle Detection Explained","description":"A detailed technical explanation of how browser-based mouse jigglers keep Microsoft Teams status active using Wake Lock API, Picture-in-Picture video, AudioContext, Web Worker, and Canvas animation.","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"},"mainEntityOfPage":"https://keepawake.app/how-it-works","datePublished":"2025-01-01","dateModified":"2025-06-01"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://keepawake.app/"},{"@type":"ListItem","position":2,"name":"How It Works","item":"https://keepawake.app/how-it-works"}]}</script>
 </head>
 <body>
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
-    <a href="index.html" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.5"><circle cx="8" cy="8" r="3" fill="white" stroke="none"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2"/></svg></span>KeepAwake</a>
-    <ul class="nav__links"><li><a href="index.html">Jiggler</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="alternatives.html">Alternatives</a></li></ul>
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.5"><circle cx="8" cy="8" r="3" fill="white" stroke="none"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li></ul>
     <div class="nav__right">
       <button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
       <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
-<div class="nav__mobile" id="nav-mobile"><a href="index.html">🖱 Jiggler</a><a href="how-it-works.html">⚙️ How It Works</a><a href="faq.html">❓ FAQ</a><a href="alternatives.html">📊 Alternatives</a><a href="about.html">ℹ️ About</a></div>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a></div>
 
 <div class="page-hero">
   <div class="page-hero__inner">
-    <nav class="breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep">›</span><span>How It Works</span></nav>
+    <nav class="breadcrumb"><a href="/">Home</a><span class="breadcrumb__sep">›</span><span>How It Works</span></nav>
     <div class="page-hero__label">Technical Guide</div>
     <h1 class="page-hero__title">How a Browser Mouse Jiggler Works</h1>
     <p class="page-hero__desc">Why computers go idle, how Teams detects Away status, and exactly what each of KeepAwake's 5 techniques does to prevent it.</p>
@@ -114,9 +114,9 @@
       </ol>
 
       <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="index.html" class="btn btn--primary">Use the Jiggler →</a>
-        <a href="faq.html" class="btn btn--outline">FAQ — 15 Questions</a>
-        <a href="alternatives.html" class="btn btn--outline">Compare All Options</a>
+        <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+        <a href="/faq" class="btn btn--outline">FAQ — 15 Questions</a>
+        <a href="/alternatives" class="btn btn--outline">Compare All Options</a>
       </div>
     </div>
   </div>
@@ -128,12 +128,12 @@
 <footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer__inner">
-      <div class="footer__brand"><a href="index.html" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>Free browser mouse jiggler for WFH workers.</p></div>
-      <div class="footer__col"><h4>Tools</h4><ul><li><a href="index.html">Mouse Jiggler</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="alternatives.html">Compare</a></li></ul></div>
-      <div class="footer__col"><h4>Help</h4><ul><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div>
-      <div class="footer__col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li></ul></div>
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>Free browser mouse jiggler for WFH workers.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
     </div>
-    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="privacy-policy.html">Privacy</a> · <a href="about.html">About</a></span></div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/about">About</a></span></div>
   </div>
 </footer>
 <div class="ad-placeholder ad--mobile-sticky" aria-hidden="true">320 × 50 — Mobile Sticky Ad</div>

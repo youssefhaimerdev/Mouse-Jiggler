@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url><loc>https://keepawake.app/</loc><lastmod>2025-06-01</lastmod><changefreq>weekly</changefreq><priority>1.0</priority><xhtml:link rel="alternate" hreflang="en" href="https://keepawake.app/"/></url>
-  <url><loc>https://keepawake.app/how-it-works.html</loc><lastmod>2025-06-01</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><xhtml:link rel="alternate" hreflang="en" href="https://keepawake.app/how-it-works.html"/></url>
-  <url><loc>https://keepawake.app/faq.html</loc><lastmod>2025-06-01</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><xhtml:link rel="alternate" hreflang="en" href="https://keepawake.app/faq.html"/></url>
-  <url><loc>https://keepawake.app/alternatives.html</loc><lastmod>2025-06-01</lastmod><changefreq>monthly</changefreq><priority>0.80</priority><xhtml:link rel="alternate" hreflang="en" href="https://keepawake.app/alternatives.html"/></url>
-  <url><loc>https://keepawake.app/about.html</loc><lastmod>2025-06-01</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://keepawake.app/privacy-policy.html</loc><lastmod>2025-06-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://keepawake.app/how-it-works</loc><lastmod>2025-06-01</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><xhtml:link rel="alternate" hreflang="en" href="https://keepawake.app/how-it-works"/></url>
+  <url><loc>https://keepawake.app/faq</loc><lastmod>2025-06-01</lastmod><changefreq>monthly</changefreq><priority>0.85</priority><xhtml:link rel="alternate" hreflang="en" href="https://keepawake.app/faq"/></url>
+  <url><loc>https://keepawake.app/alternatives</loc><lastmod>2025-06-01</lastmod><changefreq>monthly</changefreq><priority>0.80</priority><xhtml:link rel="alternate" hreflang="en" href="https://keepawake.app/alternatives"/></url>
+  <url><loc>https://keepawake.app/about</loc><lastmod>2025-06-01</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://keepawake.app/privacy-policy</loc><lastmod>2025-06-01</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
