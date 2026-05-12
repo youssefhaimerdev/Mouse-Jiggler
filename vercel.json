@@ -1,11 +1,14 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" }
+  ],
   "redirects": [
-    { "source": "/sitemap",      "destination": "/sitemap.xml",      "permanent": true },
-    { "source": "/privacy",      "destination": "/privacy-policy",   "permanent": true },
-    { "source": "/how",          "destination": "/how-it-works",     "permanent": true },
-    { "source": "/compare",      "destination": "/alternatives",     "permanent": true }
+    { "source": "/sitemap",  "destination": "/sitemap.xml", "permanent": true },
+    { "source": "/privacy",  "destination": "/privacy-policy", "permanent": true },
+    { "source": "/how",      "destination": "/how-it-works", "permanent": true },
+    { "source": "/compare",  "destination": "/alternatives", "permanent": true }
   ],
   "headers": [
     {
@@ -24,7 +27,6 @@
     { "source": "/js/(.*)",    "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
     { "source": "/sw.js",      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }, { "key": "Service-Worker-Allowed", "value": "/" }] },
     { "source": "/favicon.svg","headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }] },
-    { "source": "/(.*)\\.html","headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }] },
-    { "source": "/sitemap.xml","headers": [{ "key": "Content-Type", "value": "application/xml; charset=utf-8" }, { "key": "Cache-Control", "value": "public, max-age=86400" }] }
+    { "source": "/(.*)\\.html","headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }] }
   ]
 }
