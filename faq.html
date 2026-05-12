@@ -1,423 +1,120 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <title>Mouse Jiggler FAQ — 15 Most Asked Questions Answered</title>
-  <meta name="description" content="Answers to the 15 most common questions about online mouse jigglers: does it work on Teams and Slack? Is it detectable? Does it work when minimized? Answered here.">
-  <meta name="keywords" content="mouse jiggler faq, is mouse jiggler detectable, does mouse jiggler work on teams, mouse jiggler slack, browser jiggler questions, online mouse jiggler help">
-
-  <link rel="canonical" href="https://stayawake.app/faq.html">
-
-  <meta property="og:title" content="Mouse Jiggler FAQ — 15 Questions Answered">
-  <meta property="og:description" content="Everything you need to know about browser mouse jigglers — compatibility, detection, Slack/Teams, battery, and more.">
-  <meta property="og:url" content="https://stayawake.app/faq.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="StayAwake">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Mouse Jiggler FAQ — 15 Questions Answered">
-  <meta name="twitter:description" content="Everything about browser mouse jigglers — compatibility, detection, Slack, Teams, and more.">
-
-  <link rel="alternate" hreflang="en" href="https://stayawake.app/faq.html">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="css/style.css">
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
-  </script>
-
-  <!-- JSON-LD: FAQPage — 15 questions for rich results -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is a mouse jiggler and what does it do?",
-        "acceptedAnswer": { "@type": "Answer", "text": "A mouse jiggler is a tool that simulates mouse movement to prevent your computer from detecting an idle state. This keeps your screen from locking, prevents sleep mode from activating, and keeps your presence status active on Slack, Teams, and Zoom." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does the online mouse jiggler work on Microsoft Teams?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Microsoft Teams determines your Active or Away status based on your operating system's idle timer. StayAwake prevents the OS idle timer from expiring, which keeps your Teams status showing as Active." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it work on Slack?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Slack uses the same OS-level idle detection as Teams. StayAwake resets this timer continuously, keeping your Slack status green and active." }
-      },
-      {
-        "@type": "Question",
-        "name": "Can my employer detect that I'm using a mouse jiggler?",
-        "acceptedAnswer": { "@type": "Answer", "text": "StayAwake runs in your browser and installs nothing on your device. It does not appear in system processes, installed apps lists, or endpoint monitoring tools. However, advanced employee monitoring software that tracks keystroke patterns or mouse movement velocity may detect unusual patterns. Use responsibly." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does the jiggler work when the browser tab is minimized?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. StayAwake uses the Wake Lock API (in Chrome/Edge) which operates at the OS level and continues even when the tab is in the background. The canvas animation loop also continues running in backgrounded tabs in most browsers." }
-      },
-      {
-        "@type": "Question",
-        "name": "Will the mouse jiggler drain my laptop battery?",
-        "acceptedAnswer": { "@type": "Answer", "text": "The impact is minimal. The canvas animation renders sub-pixel changes and the pointer events are tiny JavaScript events. The main battery consideration is that your screen stays on (the whole point), which does use more power than sleep mode." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it work on a Mac?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. StayAwake works on macOS in Safari, Chrome, and Firefox. The Wake Lock API is available in Chrome and Edge on macOS. Safari uses the canvas and pointer event techniques." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it work on a Chromebook?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Chrome OS supports the Wake Lock API, making StayAwake highly effective on Chromebooks. Open it in Chrome and click Start." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is the mouse jiggler safe and legal?",
-        "acceptedAnswer": { "@type": "Answer", "text": "StayAwake itself is completely safe — it runs in your browser, installs nothing, and collects no data. Legality depends on your employment contract and company policy. Using it to appear active while genuinely working is generally fine; using it to deceive your employer while not working may violate employment terms." }
-      },
-      {
-        "@type": "Question",
-        "name": "What browsers does it support?",
-        "acceptedAnswer": { "@type": "Answer", "text": "StayAwake works in Chrome, Edge, Firefox, and Safari on desktop and mobile. The Wake Lock API feature requires Chrome 84+ or Edge 84+ over HTTPS. All other browsers use the canvas and pointer event fallback techniques." }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need to create an account or sign up?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. StayAwake requires absolutely no sign-up, no email address, no account creation. Just open the page and click Start." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it cost anything?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. StayAwake is completely free and will remain free. The site is supported by non-intrusive display advertising." }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I use it on my phone or tablet?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. StayAwake works on mobile browsers. On iOS (Safari) and Android (Chrome), it uses the canvas animation technique. Wake Lock API is supported in Chrome for Android." }
-      },
-      {
-        "@type": "Question",
-        "name": "How is this different from a hardware mouse jiggler?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Hardware mouse jigglers are USB devices costing $15–50 that physically move your cursor. StayAwake achieves the same result in your browser for free, with no physical device needed. It also doesn't visibly move your cursor, making it more discreet. See the full comparison on our Alternatives page." }
-      },
-      {
-        "@type": "Question",
-        "name": "What happens if I close the tab?",
-        "acceptedAnswer": { "@type": "Answer", "text": "All jiggling stops immediately. The Wake Lock is released, the canvas animation stops, and the pointer event timer is cleared. Your computer will return to normal idle detection behavior." }
-      }
-    ]
-  }
-  </script>
-
-  <!-- JSON-LD: BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://stayawake.app/" },
-      { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://stayawake.app/faq.html" }
-    ]
-  }
-  </script>
-
-  <style>
-    .faq-category { margin-bottom: 48px; }
-    .faq-category-title {
-      font-family: var(--font-head);
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--accent);
-      display: inline-block;
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Mouse Jiggler FAQ — 15 Questions: Teams, Slack, Detection & How It Works</title>
+<meta name="description" content="15 answered questions about online mouse jigglers: does it keep Teams green? Is it detectable? Does it work minimized? PowerShell alternative? All answered here.">
+<meta name="keywords" content="mouse jiggler faq, keep teams green faq, is mouse jiggler detectable, does mouse jiggler work on teams, mouse jiggler slack, browser jiggler questions, powershell mouse jiggler alternative faq, keep teams status active">
+<link rel="canonical" href="https://stayawake.app/faq.html">
+<meta property="og:title" content="Mouse Jiggler FAQ — 15 Questions About Teams, Slack & Detection"><meta property="og:description" content="Every question about browser mouse jigglers answered — Teams compatibility, detection risk, PiP, PowerShell alternative, and more."><meta property="og:url" content="https://stayawake.app/faq.html"><meta property="og:type" content="website"><meta property="og:site_name" content="StayAwake">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Mouse Jiggler FAQ — 15 Questions Answered">
+<link rel="alternate" hreflang="en" href="https://stayawake.app/faq.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="css/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX',{anonymize_ip:true});</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a mouse jiggler?","acceptedAnswer":{"@type":"Answer","text":"A mouse jiggler is a tool that simulates activity to prevent your computer from detecting an idle state. An online browser mouse jiggler does this using browser APIs — no download or installation needed. StayAwake uses 5 techniques: Wake Lock API, Picture-in-Picture video, AudioContext, Web Worker, and Canvas animation."}},{"@type":"Question","name":"Does a browser mouse jiggler keep Microsoft Teams status active?","acceptedAnswer":{"@type":"Answer","text":"Yes, for most users. Teams Desktop monitors OS-level idle state and whether the screen is active. StayAwake's Wake Lock API and Picture-in-Picture techniques prevent the screen from locking and keep the OS from registering as idle, which keeps Teams showing Available. Teams Web also benefits from the added browser-level activity."}},{"@type":"Question","name":"How do I keep Teams green all day?","acceptedAnswer":{"@type":"Answer","text":"Use StayAwake: open the page in Chrome or Edge, click Start Jiggler, and click Allow when prompted for Picture-in-Picture. Additionally, enable 'Keep my current status when active outside Teams' in Teams Settings → Notifications & Activity → Presence. This combination keeps your Teams status green indefinitely."}},{"@type":"Question","name":"Is a browser mouse jiggler a good free alternative to PowerShell mouse jiggler?","acceptedAnswer":{"@type":"Answer","text":"Yes — StayAwake is a much better alternative to PowerShell mouse jiggler scripts for most users. It requires no admin rights, no script execution permissions, no technical knowledge, and works on any OS. PowerShell scripts are often blocked by corporate execution policies. StayAwake is not."}},{"@type":"Question","name":"Can my employer detect I'm using StayAwake?","acceptedAnswer":{"@type":"Answer","text":"StayAwake installs nothing and appears only as a browser tab. It won't appear in Windows Task Manager or macOS Activity Monitor as a separate process. Standard idle-based monitoring won't detect it. Advanced tools that track keystroke frequency or active application focus operate differently and won't be fooled by any browser-based solution."}},{"@type":"Question","name":"Does it work when the browser is minimized?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Wake Lock API operates at OS level and continues when minimized. The Picture-in-Picture window floats above all windows and stays active even when the browser is fully minimized. The Web Worker heartbeat timer is immune to browser tab throttling."}},{"@type":"Question","name":"Does it keep Slack status active?","acceptedAnswer":{"@type":"Answer","text":"Yes. Slack uses the same OS idle detection as Teams. Preventing your screen from locking (via Wake Lock and PiP) keeps Slack showing Active."}},{"@type":"Question","name":"What browsers does it support?","acceptedAnswer":{"@type":"Answer","text":"Chrome and Edge get full support including Wake Lock API. Firefox and Safari use PiP + AudioContext + Canvas fallback — still effective on most systems. Chrome for Android supports Wake Lock API. Safari iOS uses Canvas technique."}},{"@type":"Question","name":"Does it work on a Mac?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use Chrome or Edge on macOS for Wake Lock API support. Safari uses PiP and AudioContext fallback which is effective on macOS. AudioContext is particularly effective on macOS as Apple's OS responds strongly to active audio sessions."}},{"@type":"Question","name":"Will it drain my battery?","acceptedAnswer":{"@type":"Answer","text":"Minimal impact from the techniques themselves. The main battery consideration is that your screen stays on — which is the whole point. The canvas animation, AudioContext, and Web Worker use negligible CPU (under 0.1% on modern hardware)."}},{"@type":"Question","name":"What if Teams still shows Away even with StayAwake running?","acceptedAnswer":{"@type":"Answer","text":"Try: (1) Use Chrome or Edge for Wake Lock support. (2) Click Allow for Picture-in-Picture. (3) For Teams Web, enable 'Keep my current status when active outside Teams' in Settings. (4) Set Windows Power Settings display and sleep to Never. (5) Check if Group Policy is overriding your power settings — IT can confirm this."}},{"@type":"Question","name":"Does it work on a company laptop?","acceptedAnswer":{"@type":"Answer","text":"Usually yes. StayAwake runs entirely in the browser with no installation. Most corporate endpoint security tools won't flag a browser tab. However, if Group Policy forces screen lock regardless of browser activity, a browser-based solution cannot override this."}},{"@type":"Question","name":"How is Picture-in-Picture better than other techniques?","acceptedAnswer":{"@type":"Answer","text":"Picture-in-Picture creates a floating video window managed at the OS display compositor level — above the browser's own rendering layer. The OS sees an actively playing video and suppresses idle detection even when the browser is minimized. This is the most reliable technique for Teams Desktop users."}},{"@type":"Question","name":"Is it free?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely free. No premium plans, no sign-up, no hidden fees. StayAwake is supported by non-intrusive display advertising."}},{"@type":"Question","name":"What happens when I close the tab?","acceptedAnswer":{"@type":"Answer","text":"All techniques stop immediately. The Wake Lock is released, PiP exits, AudioContext closes, and the Web Worker terminates. Your computer returns to normal idle detection behavior."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://stayawake.app/"},{"@type":"ListItem","position":2,"name":"FAQ","item":"https://stayawake.app/faq.html"}]}</script>
 </head>
 <body>
-
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav__inner">
-    <a href="index.html" class="nav__logo">
-      <span class="nav__logo-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>
-      StayAwake
-    </a>
-    <ul class="nav__links">
-      <li><a href="index.html">Jiggler</a></li>
-      <li><a href="how-it-works.html">How It Works</a></li>
-      <li><a href="faq.html" class="active">FAQ</a></li>
-      <li><a href="alternatives.html">Alternatives</a></li>
-    </ul>
+    <a href="index.html" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.5"><circle cx="8" cy="8" r="3" fill="white" stroke="none"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2"/></svg></span>StayAwake</a>
+    <ul class="nav__links"><li><a href="index.html">Jiggler</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="faq.html">FAQ</a></li><li><a href="alternatives.html">Alternatives</a></li></ul>
     <div class="nav__right">
-      <button class="theme-toggle" id="theme-btn" aria-label="Toggle dark mode">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
-      </button>
-      <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button>
+      <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
+<div class="nav__mobile" id="nav-mobile"><a href="index.html">🖱 Jiggler</a><a href="how-it-works.html">⚙️ How It Works</a><a href="faq.html">❓ FAQ</a><a href="alternatives.html">📊 Alternatives</a><a href="about.html">ℹ️ About</a></div>
 
-<div class="nav__mobile" id="nav-mobile">
-  <a href="index.html">🖱 Jiggler Tool</a>
-  <a href="how-it-works.html">⚙️ How It Works</a>
-  <a href="faq.html">❓ FAQ</a>
-  <a href="alternatives.html">📊 Alternatives</a>
-  <a href="about.html">ℹ️ About</a>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <nav class="breadcrumb"><a href="index.html">Home</a><span class="breadcrumb__sep">›</span><span>FAQ</span></nav>
+    <div class="page-hero__label">Frequently Asked Questions</div>
+    <h1 class="page-hero__title">Mouse Jiggler FAQ</h1>
+    <p class="page-hero__desc">15 questions about online mouse jigglers answered — Teams, Slack, detection risk, PiP, PowerShell alternatives, and more.</p>
+  </div>
 </div>
 
 <main>
-  <!-- AD header -->
-  <!-- ADSENSE: leaderboard 728x90 — replace with AdSense code -->
-  <div class="ad-wrap" aria-hidden="true">
-    <div class="ad-placeholder ad--leaderboard">728 × 90 — Header Leaderboard Ad</div>
-  </div>
-
-  <div class="page-hero fade-up">
-    <div class="container--narrow">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="index.html">Home</a>
-        <span class="breadcrumb__sep">›</span>
-        <span>FAQ</span>
-      </nav>
-      <div class="page-hero__label">Frequently Asked Questions</div>
-      <h1 class="page-hero__title">Mouse Jiggler FAQ</h1>
-      <p class="page-hero__desc">15 of the most common questions about StayAwake and browser-based mouse jigglers — answered clearly.</p>
-    </div>
-  </div>
+  <!-- ADSENSE UNIT: leaderboard — replace with AdSense code -->
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Header Ad</div></div>
 
   <div class="section">
-    <div class="container--narrow fade-up-2">
+    <div class="container--narrow">
 
-      <!-- Category: Basics -->
-      <div class="faq-category">
-        <div class="faq-category-title">The Basics</div>
-        <div role="list" aria-label="Basic questions">
+      <!-- Category: Teams & Slack -->
+      <h2 style="font-family:var(--font-head);font-size:20px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--accent)">Teams, Slack & Zoom</h2>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              What is a mouse jiggler and what does it do?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">A <strong>mouse jiggler</strong> is a tool that simulates continuous mouse movement to prevent your computer from entering an idle state. When your computer detects no input for a set period, it locks the screen, activates a screensaver, or shows you as "Away" on Slack and Teams. A mouse jiggler prevents this by generating activity the OS recognizes as real input — keeping your screen on and status active. StayAwake does all of this in your browser, with no download needed.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Does a browser mouse jiggler keep Microsoft Teams status active?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes, for most users. Teams Desktop monitors OS-level idle state and screen-lock status. StayAwake's <strong>Wake Lock API</strong> prevents the screen from dimming and the OS from registering as idle. The <strong>Picture-in-Picture</strong> video keeps the display active even when the browser is minimized. Together, these keep Teams showing Available. Teams Web additionally benefits from browser-level activity detection.</div></div></div>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Do I need to download anything?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Absolutely not. StayAwake is a browser-based <strong>online mouse jiggler</strong> — the entire tool runs in your web browser. There is nothing to download, nothing to install, and no admin permissions required. Open the page, click Start, and you're done.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">How do I keep Teams green all day?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Use this combination for maximum reliability: (1) Open StayAwake in Chrome or Edge. (2) Click Start Jiggler. (3) Click <strong>Allow</strong> when prompted for Picture-in-Picture. (4) If using Teams Web, enable <em>"Keep my current status when I'm active outside of Teams on the web"</em> under Teams Settings → Notifications & Activity → Presence. This is the most reliable setup available from a browser.</div></div></div>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Is it free?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Yes. StayAwake is 100% free with no premium tiers, no credits, and no sign-up required. The site is supported by non-intrusive display advertising shown in the page margins — your jiggler keeps running regardless of whether you interact with them.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Does it keep Slack status active too?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes. Slack uses the same OS idle detection mechanism as Teams. By preventing the OS from registering as idle (via Wake Lock and PiP), your Slack status stays Active. This works for both the Slack desktop app and Slack Web.</div></div></div>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Do I need to create an account?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">No account, no email, no sign-up of any kind. Just open the page and click the Start button. We don't even use cookies for user tracking — see our <a href="privacy-policy.html">Privacy Policy</a>.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">What if Teams still shows Away even with StayAwake running?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Work through this checklist: <br><br>1. <strong>Use Chrome or Edge</strong> — these support Wake Lock API. Firefox does not yet.<br>2. <strong>Click Allow for Picture-in-Picture</strong> — this is the single most impactful permission.<br>3. <strong>Teams Web users:</strong> enable "Keep my current status when active outside Teams" in Settings → Notifications → Presence.<br>4. <strong>Check Windows Power Settings</strong> — set Display and Sleep to "Never" manually.<br>5. <strong>Corporate Group Policy:</strong> If IT has forced screen lock at the OS level regardless of browser activity, a browser tool cannot override this — ask IT to adjust the idle lock timeout.</div></div></div>
 
-        </div>
-      </div>
+      <!-- ADSENSE UNIT: mid-content — replace with AdSense code -->
+      <div class="ad-wrap" style="margin:24px 0"><div class="ad-placeholder ad--rect" aria-hidden="true">336 × 280 — Mid-FAQ Ad</div></div>
 
-      <!-- AD mid -->
-      <!-- ADSENSE: rectangle 336x280 — replace with AdSense code -->
-      <div class="ad-wrap" aria-hidden="true">
-        <div class="ad-placeholder ad--rect">336 × 280 — Mid FAQ Ad</div>
-      </div>
+      <!-- Category: The Basics -->
+      <h2 style="font-family:var(--font-head);font-size:20px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin:36px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--accent)">The Basics</h2>
 
-      <!-- Category: Compatibility -->
-      <div class="faq-category">
-        <div class="faq-category-title">Compatibility</div>
-        <div role="list" aria-label="Compatibility questions">
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">What is a mouse jiggler?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">A mouse jiggler is a tool that simulates activity to prevent your computer from detecting an idle state — keeping your screen on, your screensaver from activating, and your communication platform status showing as active. An online browser mouse jiggler does this using browser APIs with no download. StayAwake uses 5 simultaneous techniques for maximum reliability.</div></div></div>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Does the online mouse jiggler work on Microsoft Teams?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Yes. Microsoft Teams determines whether to show you as <em>Active</em> or <em>Away</em> by querying your operating system's idle timer — the same timer your screensaver uses. StayAwake prevents this timer from reaching its threshold, so Teams continues to show you as Active. This has been tested and confirmed on Teams for Windows, macOS, and the web app.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Is StayAwake a free alternative to PowerShell mouse jiggler scripts?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes — and a better one for most people. PowerShell mouse jiggler scripts require script execution permissions, admin rights on many corporate devices, and technical knowledge to set up. They're often blocked by corporate PowerShell execution policies. StayAwake requires only a browser tab. No permissions, no technical knowledge, not blockable by PowerShell policy. <a href="alternatives.html">See the full comparison →</a></div></div></div>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Does it work on Slack?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Yes. Slack uses the same OS idle detection mechanism as Teams. StayAwake's jiggling techniques keep your Slack status green and active. This works for both the Slack desktop app and the Slack web app.</div></div>
-          </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              What browsers does it support?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">StayAwake works in all major browsers:<br><br>
-            <strong>Chrome 84+:</strong> Full support including Wake Lock API<br>
-            <strong>Edge 84+:</strong> Full support including Wake Lock API<br>
-            <strong>Firefox:</strong> Canvas + pointer event techniques (no Wake Lock API yet)<br>
-            <strong>Safari 16.4+:</strong> Canvas + pointer event techniques<br>
-            <strong>Chrome for Android:</strong> Wake Lock API supported<br>
-            <strong>Safari iOS:</strong> Canvas technique<br><br>
-            The tool automatically detects which techniques are available in your browser and uses the best combination.</div></div>
-          </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Does it work on a Mac?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Yes, fully. Open StayAwake in Chrome or Edge on macOS for Wake Lock API support, or use Safari for the canvas fallback technique. Both work reliably on macOS Ventura and Sonoma.</div></div>
-          </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Does it work on Chromebook?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Yes. Chrome OS fully supports the Wake Lock API, making StayAwake particularly effective on Chromebooks. The Chrome browser on Chrome OS gets full Wake Lock support.</div></div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- AD second mid -->
-      <!-- ADSENSE: rectangle 336x280 — replace with AdSense code -->
-      <div class="ad-wrap" aria-hidden="true">
-        <div class="ad-placeholder ad--rect">336 × 280 — Second Mid Ad</div>
-      </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Is it free?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Completely free. No premium tier, no sign-up, no email required. StayAwake is supported by non-intrusive display advertising shown in page margins. Your jiggler keeps running regardless of whether you see or interact with any ads.</div></div></div>
 
       <!-- Category: Privacy & Safety -->
-      <div class="faq-category">
-        <div class="faq-category-title">Privacy & Safety</div>
-        <div role="list" aria-label="Privacy and safety questions">
+      <h2 style="font-family:var(--font-head);font-size:20px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin:36px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--accent)">Privacy & Detection</h2>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Can my employer detect that I'm using a mouse jiggler?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">StayAwake installs nothing on your device and appears only as a browser tab. It will not appear in Windows Task Manager, macOS Activity Monitor, or standard endpoint monitoring lists. However, some advanced enterprise monitoring tools (Teramind, ActivTrak, Veriato) analyze typing patterns, mouse movement velocity, or active application focus — these tools operate differently from simple idle detection and may detect anomalies. Use StayAwake responsibly and in accordance with your employer's policies.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Can my employer detect that I'm using a mouse jiggler?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">StayAwake installs nothing and appears only as a browser tab. It won't show up in Windows Task Manager or macOS Activity Monitor as a separate application. Standard idle-based and screen-lock monitoring won't detect it. Advanced enterprise monitoring tools (Teramind, ActivTrak) that track keystroke frequency or active application window focus operate at a different level — no browser tool can fool these.</div></div></div>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Is it safe? Does it collect any data?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Completely safe. StayAwake collects <strong>zero personal data</strong>. The jiggler runs entirely in your browser with no server communication. We use Google Analytics 4 with IP anonymization for aggregate traffic statistics (page views, country-level data), and Google AdSense for display advertising. Neither service receives personally identifiable information from us. See the full <a href="privacy-policy.html">Privacy Policy</a>.</div></div>
-          </div>
-
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Is using a mouse jiggler ethical or legal?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">The tool itself is legal everywhere. Whether using it is ethical depends on your situation. Using it to maintain accurate availability status while you're genuinely working (reading, on a call, thinking) is reasonable — the OS idle timer often misrepresents real work. Using it to appear active while not working could violate your employment agreement. We're not here to judge, but we do encourage responsible use.</div></div>
-          </div>
-
-        </div>
-      </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Does it work on a company-managed laptop?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Usually yes. StayAwake is just a browser tab — corporate endpoint security tools rarely restrict websites the way they restrict installed software. However, if your company uses Group Policy to force screen lock at the OS level, that policy overrides browser-level wake locks. Check with IT if unsure.</div></div></div>
 
       <!-- Category: Technical -->
-      <div class="faq-category">
-        <div class="faq-category-title">Technical Questions</div>
-        <div role="list" aria-label="Technical questions">
+      <h2 style="font-family:var(--font-head);font-size:20px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin:36px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--accent)">Technical Questions</h2>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Does it work when the tab is minimized or in the background?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Yes. The Wake Lock API (Chrome/Edge) operates at the OS level and is unaffected by tab visibility. The canvas animation loop continues in backgrounded tabs in most modern browsers, though some browsers throttle background tabs aggressively. We recommend using Chrome or Edge for the most reliable background operation. The tab must stay open — just minimize it, don't close it.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Does it work when the browser is minimized?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Yes. Wake Lock API operates at OS level, independent of browser visibility. Picture-in-Picture creates an OS-level floating video window that persists even with the browser minimized. The Web Worker heartbeat is immune to browser tab throttling. The tab must stay <em>open</em> — just minimize it, don't close it.</div></div></div>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              Will it drain my battery faster?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">The jiggling techniques themselves use negligible CPU (less than 0.1% on modern hardware). The main battery impact is simply that your screen stays on instead of dimming or sleeping — which is the entire purpose of the tool. If you're plugged in, this is irrelevant. On battery, expect roughly the same drain as having a browser tab open with a video paused.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Why is Picture-in-Picture better than simple canvas animation?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">Canvas animation runs inside the browser's rendering thread — it keeps the browser active but doesn't directly signal the OS. Picture-in-Picture is managed at the OS display compositor level. The OS sees a video playing and suppresses all idle timers — the same ones Teams monitors. PiP is also the only technique that reliably works when the browser window is fully minimized.</div></div></div>
 
-          <div class="faq-item" role="listitem">
-            <button class="faq-question" aria-expanded="false">
-              How is this different from a hardware mouse jiggler?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer"><div class="faq-answer-inner">Hardware mouse jigglers are USB devices that physically move your cursor. They cost $15–50, must be physically plugged in, and visibly move your cursor on screen (which can be noticed). StayAwake is free, needs no hardware, doesn't visibly move your cursor (pointer events are sub-pixel), and works on any computer with a browser. See our <a href="alternatives.html">full comparison of all mouse jiggler options</a>.</div></div>
-          </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">What browsers does it fully support?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner"><strong>Chrome 84+:</strong> Full support — Wake Lock + PiP + Audio + Worker + Canvas<br><strong>Edge 84+:</strong> Full support — same as Chrome<br><strong>Firefox:</strong> No Wake Lock yet — PiP + Audio + Worker + Canvas (still effective)<br><strong>Safari 16.4+:</strong> Partial PiP + Canvas + Audio<br><strong>Chrome Android:</strong> Wake Lock + Audio + Worker + Canvas<br><strong>Safari iOS:</strong> Canvas + Audio only<br><br>For the most reliable Teams-green experience, use Chrome or Edge on a desktop computer.</div></div></div>
 
-        </div>
-      </div>
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">Will it drain my battery faster?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">The techniques themselves use negligible CPU — under 0.1% on modern hardware. The main battery impact is simply that your screen stays on instead of dimming, which is the entire purpose. If you're plugged in, this is irrelevant. On battery, expect similar drain to having a browser tab with a paused video open.</div></div></div>
+
+      <div class="faq-item"><button class="faq-question" aria-expanded="false">What happens when I close the tab?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><div class="faq-answer-inner">All techniques stop immediately and cleanly. The Wake Lock is released back to the OS. PiP exits. The AudioContext is closed. The Web Worker is terminated. Your computer returns to its normal idle detection behavior within seconds.</div></div></div>
 
       <div class="mt-48 text-center">
-        <p style="font-size:15px;color:var(--text-2);margin-bottom:20px;">Still have a question? Try the tool or read our detailed guide.</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a href="index.html" class="btn btn--primary">Use the Free Jiggler →</a>
-          <a href="how-it-works.html" class="btn btn--outline">How It Works</a>
+        <p style="font-size:14px;color:var(--text-3);margin-bottom:16px">Still have a question?</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="index.html" class="btn btn--primary">Use the Jiggler →</a>
+          <a href="how-it-works.html" class="btn btn--outline">Technical Explainer</a>
           <a href="alternatives.html" class="btn btn--outline">Compare Options</a>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- AD footer -->
-  <!-- ADSENSE: leaderboard 728x90 footer — replace with AdSense code -->
-  <div class="ad-wrap" aria-hidden="true">
-    <div class="ad-placeholder ad--leaderboard">728 × 90 — Footer Ad</div>
-  </div>
+  <!-- ADSENSE UNIT: footer leaderboard — replace with AdSense code -->
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
 </main>
 
 <footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer__inner">
-      <div class="footer__brand">
-        <a href="index.html" class="nav__logo" style="display:inline-flex;margin-bottom:10px;">
-          <span class="nav__logo-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>
-          StayAwake
-        </a>
-        <p>Free browser-based mouse jiggler for WFH workers.</p>
-      </div>
+      <div class="footer__brand"><a href="index.html" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>StayAwake</a><p>Free browser mouse jiggler for WFH workers.</p></div>
       <div class="footer__col"><h4>Tools</h4><ul><li><a href="index.html">Mouse Jiggler</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="alternatives.html">Compare</a></li></ul></div>
       <div class="footer__col"><h4>Help</h4><ul><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li></ul></div>
       <div class="footer__col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li></ul></div>
     </div>
-    <div class="footer__bottom">
-      <span>© 2025 StayAwake. Free forever.</span>
-      <span><a href="privacy-policy.html">Privacy</a> · <a href="about.html">About</a></span>
-    </div>
+    <div class="footer__bottom"><span>© 2025 StayAwake. Free forever.</span><span><a href="privacy-policy.html">Privacy</a> · <a href="about.html">About</a></span></div>
   </div>
 </footer>
-
-<!-- ADSENSE MOBILE STICKY — replace with AdSense anchor ad code -->
-<div class="ad-placeholder ad--mobile-sticky" aria-hidden="true">320 × 50 Mobile Sticky Ad</div>
-
+<div class="ad-placeholder ad--mobile-sticky" aria-hidden="true">320 × 50 — Mobile Sticky Ad</div>
 <script>if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));</script>
 <script src="js/main.js" defer></script>
-</body>
-</html>
+</body></html>

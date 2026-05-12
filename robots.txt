@@ -1,8 +1,5 @@
 User-agent: *
 Allow: /
-
-# Block private/utility files
 Disallow: /sw.js
-
-# Sitemap location
+Disallow: /vercel.json
 Sitemap: https://stayawake.app/sitemap.xml
