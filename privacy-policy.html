@@ -103,7 +103,46 @@
     <h2>Contact</h2>
     <p><a href="mailto:hello@keepawake.app">hello@keepawake.app</a></p>
 
-    <div class="mt-32"><a href="/" class="btn btn--primary">Back to the Jiggler →</a></div>
+    <h2>Why We Built a Privacy-First Mouse Jiggler</h2>
+    <p>KeepAwake was designed from the ground up with a clear principle: a tool that runs on your computer, interacting with your browser's deepest system APIs, should never phone home with data about what it's doing. That's why every single technique KeepAwake uses — Wake Lock, Picture-in-Picture, AudioContext, Web Worker, Canvas animation — runs entirely on your device, in your browser, with zero network communication during operation.</p>
+    <p>We're aware that a mouse jiggler is, by definition, a tool people use in sensitive workplace contexts. Whether you're managing your Teams status on a corporate-managed laptop, keeping Slack active during deep work, or preventing your screen from locking during a confidential presentation — the last thing you need is a tool that tracks your usage patterns, reports back to a server, or leaks information about your browsing session. KeepAwake doesn't and never will.</p>
+
+    <h2>What "Client-Side Only" Actually Means</h2>
+    <p>When we say the jiggler runs "client-side," we mean every computation, every API call, every timer, and every technique activation happens exclusively inside your browser on your own device. Here's what doesn't happen when you click Start:</p>
+    <ul>
+      <li>No request is sent to our servers indicating you started the jiggler</li>
+      <li>No data about your screen, idle state, or computer activity is transmitted</li>
+      <li>No information about which techniques are active or which browser you're using is logged to our backend</li>
+      <li>No timestamp of when you started or stopped is recorded on our end</li>
+      <li>No cookies are set by the jiggler itself</li>
+    </ul>
+    <p>The only server communication when you use KeepAwake is the initial page load — your browser downloads the HTML, CSS, and JavaScript files, and then everything runs locally. After that, the page could theoretically work offline (and does, via our service worker), with no further server contact required.</p>
+
+    <h2>Remote Work Privacy and Mouse Jigglers</h2>
+    <p>A common concern among remote workers is whether using a mouse jiggler can be detected by their employer. This is a fair question, and we want to answer it honestly rather than offer false reassurances.</p>
+    <p><strong>What KeepAwake does:</strong> It prevents your computer's OS-level idle timer from triggering by using browser APIs. It appears in your system's process list only as a browser tab — specifically, as part of whatever browser process (Chrome, Edge, Firefox) you're using. It installs nothing, modifies no system files, and leaves no trace after the tab is closed.</p>
+    <p><strong>What standard employer monitoring tools see:</strong> Basic idle-time monitoring and presence detection — the kind built into Teams, Slack, and Zoom — will see a continuously active system with a non-idle status. They won't be triggered. Firewall-level monitoring would see normal browser traffic to keepawake.app, the same as any other website visit.</p>
+    <p><strong>What advanced monitoring tools might see:</strong> Enterprise tools like Teramind, ActivTrak, Veriato, or similar keystroke/activity tracking software operate at a fundamentally different level — monitoring which application is in focus, keystroke frequency, screenshot captures, and behavioral patterns. No browser-based tool of any kind can fool these systems, and KeepAwake makes no claim to do so.</p>
+    <p>We recommend using KeepAwake for legitimate purposes — staying available during focused reading, phone calls, presentations, or training sessions — and being aware of your employer's monitoring policies.</p>
+
+    <h2>Advertising and Free Access</h2>
+    <p>KeepAwake is completely free to use, and we are committed to keeping it that way. The service is funded by Google AdSense display advertising shown in page margins. This is the same advertising model used by billions of websites globally, and it means we never need to charge users, introduce subscription tiers, or monetize user data to keep the lights on.</p>
+    <p>Google AdSense may set its own cookies and use browsing data to serve personalized advertisements, in accordance with Google's own privacy policies. If you prefer not to receive personalized ads, you can adjust your preferences at <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>, or use a browser extension that blocks advertising cookies. The jiggler functionality works identically whether or not you interact with any advertisements.</p>
+
+    <h2>Open and Honest Operation</h2>
+    <p>We don't hide what KeepAwake does or how it works. The entire technical explanation of every technique — Wake Lock API, Picture-in-Picture, AudioContext, Web Worker, and Canvas animation — is documented publicly on our <a href="/how-it-works">How It Works page</a>. The JavaScript that powers the jiggler can be inspected in your browser's developer tools at any time. We have nothing to hide because there is nothing to hide.</p>
+    <p>If you ever have a question about what data KeepAwake does or doesn't collect, or want to raise a concern about our practices, email us at <a href="mailto:hello@keepawake.app">hello@keepawake.app</a>. We respond to every message.</p>
+
+    <h2>Your Responsibility as a User</h2>
+    <p>KeepAwake is a tool, and like any tool, the responsibility for how it is used rests with the user. We built it to solve a legitimate and frustrating problem — keeping your availability status accurate during genuine work sessions. Using it to misrepresent your availability when you are actually not working may violate your employer's remote work policy. We encourage all users to review their organization's guidelines and to use KeepAwake in a manner consistent with their professional obligations.</p>
+    <p>We also want to be clear that KeepAwake has no affiliation with Microsoft, Slack Technologies, Zoom Video Communications, or any other platform mentioned on this site. Product names and trademarks are the property of their respective owners. References to Microsoft Teams, Slack, Zoom, and other platforms are for descriptive purposes only to explain the tool's use cases.</p>
+
+    <p style="font-size:13px;color:var(--text-3);margin-top:32px"><em>Last updated: June 2025. We may update this policy periodically. Changes will be posted here with a revised date.</em></p>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Back to the Jiggler →</a>
+      <a href="/about" class="btn btn--outline">About KeepAwake</a>
+    </div>
   </div></div>
 </main>
 

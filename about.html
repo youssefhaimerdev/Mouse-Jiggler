@@ -52,7 +52,7 @@
     <p>KeepAwake is a single-purpose, browser-based tool that does one thing exceptionally well — keeps your computer awake and your communication platform status active. No upsells, no sign-ups, no data collection.</p>
 
     <h2>What We Built</h2>
-    <p>KeepAwake v2 uses five simultaneous browser techniques, each targeting a different layer of the OS idle detection stack:</p>
+    <p>KeepAwake uses five simultaneous browser techniques, each targeting a different layer of the OS idle detection stack:</p>
     <ul>
       <li><strong>Wake Lock API</strong> — directly requests the OS keep the screen active (Chrome &amp; Edge)</li>
       <li><strong>Picture-in-Picture video</strong> — floating OS-level video window, works even when browser is minimized</li>
@@ -69,13 +69,72 @@
       <div class="stat-card"><span class="stat-num">$0</span><div class="stat-label">Cost to you, forever</div></div>
     </div>
 
-    <h2>Privacy Commitment</h2>
-    <p>We have a simple privacy policy: we don't know who you are and we don't want to. KeepAwake collects no personally identifiable information. The jiggler runs 100% client-side — no data is transmitted to our servers. See our full <a href="/privacy-policy">Privacy Policy</a>.</p>
+    <h2>The Problem We Solve</h2>
+    <p>Remote and hybrid work has fundamentally changed how availability is perceived in the workplace. Before 2020, being at your desk was self-evident. Today, your green status dot on Microsoft Teams, Slack, or Zoom is your digital presence — the only signal your team has that you're available, focused, and reachable.</p>
+    <p>The problem is that every major communication platform uses the same underlying mechanism to determine your status: the operating system's idle timer. After just 5 minutes of no keyboard or mouse input, your OS registers as idle, and Teams flips your status from Available (green) to Away (yellow). This happens even when you're completely engaged in your work — reading a report, on a phone call, watching a training video, or thinking through a complex problem.</p>
+    <p>The result is a cascade of unnecessary friction: colleagues think you're unavailable, managers message asking if you're online, and you're constantly interrupted just to move your mouse or press a key to reset a timer that should never have mattered in the first place.</p>
+
+    <h2>Why Existing Solutions Fall Short</h2>
+    <p>Before KeepAwake, the most common solutions were either expensive, technical, or unusable on corporate devices:</p>
+    <ul>
+      <li><strong>USB hardware mouse jigglers</strong> cost $15–50, physically move your cursor across the screen (disrupting your work), and require an available USB port — which many corporate laptops lock down.</li>
+      <li><strong>PowerShell mouse jiggler scripts</strong> require Windows PowerShell execution permissions and admin rights that are blocked on most corporate-managed devices, plus technical knowledge to write or run them.</li>
+      <li><strong>Installed software like Move Mouse or Caffeine</strong> requires admin installation rights that IT departments routinely deny, and triggers endpoint security alerts on managed devices.</li>
+      <li><strong>Manually changing power settings</strong> requires access to Control Panel or System Preferences that corporate Group Policy often restricts, and creates a permanent change rather than an on-demand one.</li>
+    </ul>
+    <p>KeepAwake bypasses all of these barriers by running entirely inside a browser tab. No installation. No admin rights. No hardware. No technical knowledge. Just open the page and click Start.</p>
+
+    <h2>How KeepAwake Is Different</h2>
+    <p>Most browser-based mouse jigglers use a single technique — typically a JavaScript loop that dispatches synthetic mouse events. The problem is that Windows' <code>GetLastInputInfo()</code> API — the function Teams calls to check your idle time — only resets on genuine hardware input, not synthetic browser events. This means a simple JavaScript jiggler is unreliable for Teams Desktop.</p>
+    <p>KeepAwake uses five techniques simultaneously, each targeting a different layer of the system. The <strong>Screen Wake Lock API</strong> is a W3C web standard that directly tells the operating system to suppress sleep and idle detection. The <strong>Picture-in-Picture</strong> technique creates an OS-level floating video window that signals active media playback — one of the strongest idle inhibitors across all platforms. Together with <strong>AudioContext</strong>, <strong>Web Worker</strong>, and <strong>Canvas animation</strong> fallbacks, KeepAwake achieves coverage across every major browser and operating system combination.</p>
+    <p>The result: your Teams status stays green, your Slack status stays Active, your Zoom shows as available, and your screen never dims — all without moving your cursor, installing anything, or touching your power settings.</p>
+
+    <h2>Who Uses KeepAwake</h2>
+    <p>KeepAwake is used daily by remote workers, hybrid employees, students, and professionals across every industry. Common use cases include:</p>
+    <ul>
+      <li>Keeping <strong>Microsoft Teams status green</strong> while reading documents, on phone calls, or in focus-work sessions</li>
+      <li>Preventing <strong>Slack from showing Away</strong> during deep work or away-from-keyboard moments</li>
+      <li>Keeping the screen on during <strong>online presentations and training sessions</strong></li>
+      <li>Stopping the <strong>screensaver from activating</strong> during long videos or meetings</li>
+      <li>Maintaining an active status on <strong>corporate-managed laptops</strong> where software installation is not permitted</li>
+      <li>Replacing <strong>PowerShell mouse jiggler scripts</strong> without needing technical knowledge or admin rights</li>
+      <li>Providing a free alternative to <strong>USB hardware mouse jigglers</strong> for remote and hybrid workers</li>
+    </ul>
+
+    <h2>Our Commitment to Privacy</h2>
+    <p>We have a simple privacy policy: we don't know who you are and we don't want to. KeepAwake collects zero personally identifiable information. The jiggler runs 100% client-side in your browser — no data is transmitted to any server when you use the tool. We use Google Analytics for basic page-level traffic insights (anonymized) and display Google AdSense ads to keep the service free. No account, no email, no tracking of individual users. See our full <a href="/privacy-policy">Privacy Policy</a> for complete details.</p>
+
+    <h2>Free Forever</h2>
+    <p>KeepAwake is and will remain completely free. There is no premium tier, no subscription, no paywall, and no feature lock. The tool is supported by non-intrusive display advertising shown in page margins — the same model used by millions of websites worldwide. Your jiggler continues running regardless of whether you interact with any ads.</p>
+    <p>We believe that a tool solving such a universal and genuine problem should be accessible to everyone — including workers on tight budgets, students, freelancers, and anyone who simply can't justify spending money on a USB jiggler or paid desktop app.</p>
+
+    <h2>Built for the Modern Workplace</h2>
+    <p>Work has changed permanently. Hybrid schedules, remote-first teams, distributed organizations across time zones — the green status dot has become a real-world proxy for professional presence. KeepAwake was built for this reality. Whether you're a full-time remote worker, a hybrid employee with two days in the office, or a student attending virtual classes, KeepAwake gives you control over how your digital availability appears — without friction, without cost, and without compromise.</p>
+
+    <h2>The Technology Behind KeepAwake</h2>
+    <p>Building a reliable browser-based keep-awake tool is harder than it sounds. The naive approach — dispatching synthetic mouse events with JavaScript — doesn't actually work for Microsoft Teams Desktop, because Teams reads the Windows <code>GetLastInputInfo()</code> API which only responds to genuine physical hardware events, not browser-generated synthetic ones. This is a detail that many simpler browser jigglers get wrong, leading users to think browser tools don't work when in fact the specific technique matters enormously.</p>
+    <p>KeepAwake's approach is fundamentally different. The <strong>Screen Wake Lock API</strong> works at the OS level — it's the same mechanism that Netflix uses to keep your screen on during a movie. <strong>Picture-in-Picture</strong> creates an OS-managed floating video window that signals active media playback to the system. These techniques don't simulate input; they directly suppress idle detection at its source. The result is a tool that genuinely works for Teams Desktop, not just Teams Web.</p>
+    <p>The <strong>Web Worker heartbeat</strong> deserves special mention. Browsers aggressively throttle background tabs — reducing JavaScript timer precision to once per minute or slower when a tab hasn't been visible for a while. Web Workers run in a separate thread that is immune to this throttling. By running the keep-alive heartbeat inside a Web Worker, KeepAwake continues operating reliably even after being in the background for hours, which is exactly the use case most remote workers need.</p>
+
+    <h2>Our Values</h2>
+    <p>Three principles guide every decision we make about KeepAwake:</p>
+    <ul>
+      <li><strong>Free forever.</strong> The tool should be accessible to everyone regardless of budget. A $0 browser tool beats a $40 USB jiggler for the vast majority of use cases. We will never introduce a paywall, subscription, or feature lock on the core jiggling functionality.</li>
+      <li><strong>No data collection.</strong> A tool that runs on your computer and interacts with your browser's deepest APIs has no business collecting data about you. The jiggler runs client-side. We don't know who you are, when you used it, or what your computer did.</li>
+      <li><strong>Honest about limitations.</strong> KeepAwake cannot override Group Policy forced screen locks. It cannot fool advanced endpoint monitoring tools that track keystrokes and application focus. We document these limitations clearly rather than making claims we can't back up. Remote workers deserve honest information, not marketing spin.</li>
+    </ul>
+
+    <h2>Compatible With Every Major Remote Work Platform</h2>
+    <p>KeepAwake is tested and confirmed to maintain active status across all major workplace communication platforms currently in use in 2025. Whether your organization runs on Microsoft 365 with Teams as the primary collaboration hub, Slack as a standalone messaging platform, Zoom as the video conferencing standard, or a combination of all three, KeepAwake handles them all simultaneously from a single browser tab. You don't need separate tools for each platform — one tab, one click, every status stays green.</p>
 
     <h2>Contact</h2>
     <p>Questions, feedback, or bug reports? <a href="mailto:hello@keepawake.app">hello@keepawake.app</a></p>
 
-    <div class="mt-32"><a href="/" class="btn btn--primary">Back to the Jiggler →</a></div>
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/how-it-works" class="btn btn--outline">How It Works</a>
+      <a href="/faq" class="btn btn--outline">FAQ</a>
+    </div>
   </div></div>
 </main>
 
