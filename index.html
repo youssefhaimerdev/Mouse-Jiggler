@@ -112,10 +112,12 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
 .backup-explain{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:18px;text-align:left}
 .backup-explain strong{color:var(--text)}
 .backup-canvas-wrap{display:flex;justify-content:center;margin:0 0 16px}
-#backup-canvas{display:block;width:100%;max-width:300px;aspect-ratio:1;border-radius:10px;border:2px solid var(--border);cursor:default}
+#backup-canvas{display:block;width:100%;max-width:300px;border-radius:10px;border:2px solid var(--border);cursor:default}
+.backup-canvas-wrap{display:flex;justify-content:center;margin:0 0 16px}
 @media(max-width:768px){
-  #backup-canvas{max-width:100%}
-  .backup-card{padding:20px 16px}
+  .backup-canvas-wrap{margin-left:-20px;margin-right:-20px;margin-bottom:16px}
+  #backup-canvas{max-width:100%;width:100%;border-radius:0;border-left:none;border-right:none;border-top:2px solid var(--border);border-bottom:2px solid var(--border)}
+  .backup-card{padding:20px 20px}
 }
 #btn-backup{width:100%;max-width:260px;padding:14px 26px;font-size:16px;font-weight:700;font-family:var(--font-head);border-radius:14px;border:none;background:#F59E0B;color:#fff;cursor:pointer;transition:background .2s,transform .1s;margin-bottom:8px}
 #btn-backup:hover{background:#FBBF24;transform:translateY(-1px)}
@@ -293,7 +295,8 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
             </div>
 
             <div class="backup-instruction">
-              💡 <strong>How to use on your phone:</strong> Tap Start Animation above → the screen stays awake automatically → flip your mouse upside-down and rest its bottom sensor on the moving stripes. Your mouse will report continuous movement to your computer, keeping Teams green. Works with any optical mouse.
+              <strong>💡 How to use:</strong> Tap Start → flip your mouse upside-down → rest the sensor on the moving pattern. Your mouse reports continuous movement to your PC, keeping Teams green.<br><br>
+              <strong>⚠️ Mouse not tracking?</strong> Phone screens are glossy — place a thin sheet of white paper over your phone screen first. The paper gives the optical sensor the texture it needs to track reliably. Works instantly.
             </div>
           </div>
         </div><!-- /backup-method -->
@@ -429,24 +432,43 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
 
 <script>
 (function () {
-  var canvas = document.getElementById('backup-canvas');
-  var btn    = document.getElementById('btn-backup');
-  var status = document.getElementById('backup-status');
+  var canvas  = document.getElementById('backup-canvas');
+  var btn     = document.getElementById('btn-backup');
+  var status  = document.getElementById('backup-status');
   if (!canvas || !btn) return;
 
-  var ctx        = null;
-  var animFrame  = null;
-  var offset     = 0;
-  var running    = false;
-  var wakeLock   = null;
-  var STRIPE_H   = 10;   // px per stripe (black or white)
-  var SPEED      = 2;    // px moved per frame
+  var ctx       = null;
+  var animFrame = null;
+  var offset    = 0;
+  var running   = false;
+  var wakeLock  = null;
 
-  /* ── Setup canvas dimensions ── */
+  /*
+   * Diagonal checkerboard — research-backed optimal pattern for optical sensors:
+   *
+   * • Checkerboard provides high-contrast landmarks in BOTH X and Y axes
+   *   simultaneously, so the mouse DSP detects motion in both directions.
+   *   Horizontal-only stripes give signal in just one axis and are less reliable.
+   *
+   * • Diagonal movement (offset applied equally to X and Y) means every frame
+   *   the pattern shifts in both dimensions, maximising what the sensor detects.
+   *
+   * • Cell size 16px ≈ ~1mm on a phone screen — within the LED illumination
+   *   area and large enough for the sensor's CMOS array to resolve at distance.
+   *
+   * • Speed 4px/frame @ ~60fps = ~240px/s diagonal — fast enough that the
+   *   sensor cannot miss movement between its 1000+ samples per second.
+   *
+   * • Pure #000 / #fff = maximum contrast ratio — same as the original
+   *   Kirsch optical mouse grid specification.
+   */
+  var CELL  = 16;   // checkerboard cell size in CSS pixels
+  var SPEED = 4;    // pixels of diagonal movement per animation frame
+
+  /* ── Setup canvas: square, hi-DPI aware ── */
   function resize() {
-    var dpr = window.devicePixelRatio || 1;
+    var dpr  = window.devicePixelRatio || 1;
     var cssW = canvas.parentElement.offsetWidth;
-    /* Square: cap at 300px on desktop, full-width on mobile */
     var maxW = window.innerWidth > 768 ? 300 : cssW;
     var side = Math.min(cssW, maxW);
     canvas.style.width  = side + 'px';
@@ -457,17 +479,33 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
     ctx.scale(dpr, dpr);
   }
 
-  /* ── Draw a frame of moving stripes ── */
+  /* ── Draw diagonal checkerboard frame ── */
   function draw() {
     if (!ctx) return;
-    var w = parseFloat(canvas.style.width)  || canvas.offsetWidth;
-    var h = parseFloat(canvas.style.height) || canvas.offsetHeight;
-    var period  = STRIPE_H * 2;
-    var nStripes = Math.ceil(h / STRIPE_H) + 2;
-    for (var i = 0; i < nStripes; i++) {
-      var y = (i * STRIPE_H) - (offset % period);
-      ctx.fillStyle = (i % 2 === 0) ? '#000000' : '#ffffff';
-      ctx.fillRect(0, y, w, STRIPE_H);
+    var w    = parseFloat(canvas.style.width)  || canvas.offsetWidth;
+    var h    = parseFloat(canvas.style.height) || canvas.offsetHeight;
+    var period = CELL * 2;          // pattern repeats every 2 cells
+    var off  = offset % period;     // diagonal offset (same for X and Y)
+    var cols = Math.ceil(w / CELL) + 3;
+    var rows = Math.ceil(h / CELL) + 3;
+
+    /* Fill black background first — fast single rect */
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, w, h);
+
+    /* Paint white squares only (saves ~half the fillRect calls) */
+    ctx.fillStyle = '#ffffff';
+    for (var row = -2; row < rows; row++) {
+      for (var col = -2; col < cols; col++) {
+        /* Checkerboard: white when (row+col) is even */
+        if ((row + col) % 2 === 0) {
+          ctx.fillRect(
+            col * CELL - off,   /* X shifts with offset */
+            row * CELL - off,   /* Y shifts with same offset → diagonal */
+            CELL, CELL
+          );
+        }
+      }
     }
   }
 
@@ -478,13 +516,15 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
     animFrame = requestAnimationFrame(animate);
   }
 
-  /* ── Request Wake Lock to keep phone screen on ── */
+  /* ── Keep phone screen on while backup runs ── */
   function requestWakeLock() {
     if ('wakeLock' in navigator) {
-      navigator.wakeLock.request('screen').then(function (wl) {
-        wakeLock = wl;
-        wl.addEventListener('release', function () { wakeLock = null; });
-      }).catch(function () {});
+      navigator.wakeLock.request('screen')
+        .then(function (wl) {
+          wakeLock = wl;
+          wl.addEventListener('release', function () { wakeLock = null; });
+        })
+        .catch(function () {});
     }
   }
 
@@ -493,7 +533,7 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
     running = true;
     btn.textContent = 'Stop Animation';
     btn.classList.add('running');
-    status.textContent = '▶ Running — place your mouse sensor on the screen';
+    status.textContent = '▶ Running — rest your mouse sensor on the pattern';
     requestWakeLock();
     resize();
     animate();
@@ -507,25 +547,23 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
     btn.textContent = 'Start Animation';
     btn.classList.remove('running');
     status.textContent = '';
-    /* redraw static preview */
     offset = 0;
     draw();
   }
 
   btn.addEventListener('click', function () {
-    if (!running) { start(); } else { stop(); }
+    running ? stop() : start();
   });
 
-  /* Re-acquire wake lock if tab becomes visible again */
+  /* Re-acquire wake lock when tab becomes visible again after backgrounding */
   document.addEventListener('visibilitychange', function () {
     if (running && document.visibilityState === 'visible' && !wakeLock) {
       requestWakeLock();
     }
   });
 
-  /* Draw static preview on load */
-  window.addEventListener('load', function () { resize(); draw(); });
-  window.addEventListener('resize', function () { if (running) { resize(); } });
+  window.addEventListener('load',   function () { resize(); draw(); });
+  window.addEventListener('resize', function () { if (running) resize(); });
 })();
 </script>
 
