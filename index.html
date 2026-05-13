@@ -87,6 +87,44 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
 .teams-tip a{color:var(--accent)}
 @media(max-width:900px){.page-grid{grid-template-columns:1fr}.sidebar-col{display:none}}
 @media(max-width:640px){.steps-row{grid-template-columns:1fr}.testimonials{grid-template-columns:1fr}.jiggler-card{padding:24px 18px 20px}#btn-toggle{font-size:15px;padding:14px 22px}#timer-display{font-size:28px}}
+
+/* ── Methods wrapper: primary / backup ordering ── */
+.methods-wrapper{display:flex;flex-direction:column}
+.primary-method{order:1}
+.backup-method{order:2}
+@media(max-width:768px){
+  .primary-method{order:2}
+  .backup-method{order:1}
+}
+
+/* Method header labels */
+.method-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.method-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:20px}
+.primary-pill{background:rgba(22,163,74,.12);color:var(--accent);border:1px solid rgba(22,163,74,.25)}
+.backup-pill{background:rgba(245,158,11,.12);color:#D97706;border:1px solid rgba(245,158,11,.3)}
+.method-pill-dot{width:7px;height:7px;border-radius:50%}
+.primary-pill .method-pill-dot{background:var(--accent)}
+.backup-pill .method-pill-dot{background:#F59E0B}
+.method-subtitle{font-size:12px;color:var(--text-3)}
+
+/* Backup method card */
+.backup-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;text-align:center}
+.backup-explain{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:18px;text-align:left}
+.backup-explain strong{color:var(--text)}
+.backup-canvas-wrap{display:flex;justify-content:center;margin:0 0 16px}
+#backup-canvas{display:block;width:100%;max-width:300px;aspect-ratio:1;border-radius:10px;border:2px solid var(--border);cursor:default}
+@media(max-width:768px){
+  #backup-canvas{max-width:100%}
+  .backup-card{padding:20px 16px}
+}
+#btn-backup{width:100%;max-width:260px;padding:14px 26px;font-size:16px;font-weight:700;font-family:var(--font-head);border-radius:14px;border:none;background:#F59E0B;color:#fff;cursor:pointer;transition:background .2s,transform .1s;margin-bottom:8px}
+#btn-backup:hover{background:#FBBF24;transform:translateY(-1px)}
+#btn-backup.running{background:#EF4444}
+#btn-backup.running:hover{background:#F87171}
+#backup-status{font-size:12px;color:var(--text-3);min-height:18px}
+.backup-instruction{font-size:12px;color:var(--text-3);margin-top:12px;line-height:1.6;background:var(--bg-subtle);border-radius:8px;padding:10px 12px;text-align:left}
+.ad-mobile-backup{display:none}
+@media(max-width:768px){.ad-mobile-backup{display:block;margin:12px 0}}
 </style>
 </head>
 <body>
@@ -142,7 +180,15 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
   <!-- TOOL + SIDEBAR -->
   <div class="page-grid fade-up-2">
     <div>
-      <div id="wl-status" style="text-align:center;margin-bottom:14px" aria-live="polite"></div>
+      <div class="methods-wrapper">
+
+        <!-- ████ PRIMARY METHOD ████ -->
+        <div class="primary-method">
+          <div class="method-header">
+            <span class="method-pill primary-pill"><span class="method-pill-dot"></span>Primary Method</span>
+            <span class="method-subtitle">Browser APIs — Wake Lock, PiP, AudioContext</span>
+          </div>
+          <div id="wl-status" style="text-align:center;margin-bottom:14px" aria-live="polite"></div>
 
       <div class="jiggler-wrap">
         <div class="jiggler-card" role="region" aria-label="Mouse Jiggler Control">
@@ -215,6 +261,44 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
       <div class="teams-tip">
         <strong>📘 Teams Web users:</strong> Enable <em>"Keep my current status when I'm active outside of Teams on the web"</em> in Teams → Settings → Notifications & Activity → Presence. This makes KeepAwake even more effective by letting Teams detect cross-tab activity. <a href="/how-it-works">Learn more →</a>
       </div>
+        </div><!-- /primary-method -->
+
+        <!-- ████ BACKUP METHOD ████ -->
+        <div class="backup-method">
+          <div class="method-header" style="margin-top:32px">
+            <span class="method-pill backup-pill"><span class="method-pill-dot"></span>Backup Method</span>
+            <span class="method-subtitle">Optical Sensor Trick — Physical simulation via phone screen</span>
+          </div>
+
+          <div class="backup-card">
+            <p class="backup-explain">
+              If the primary method didn't keep Teams or Slack active for you, this backup method is a <strong>guaranteed physical solution</strong>. Open this page on your phone, tap <strong>Start Animation</strong>, then place the bottom of your mouse directly on your phone's screen. The moving black-and-white stripes trick the mouse's <strong>optical laser sensor</strong> into registering continuous movement — simulating real mouse activity at the hardware level, which resets the OS idle timer every single second.
+            </p>
+
+            <!-- Mobile top ad -->
+            <div class="ad-mobile-backup ad-wrap">
+              <div class="ad-placeholder" style="width:320px;height:50px;line-height:50px;font-size:12px;margin:0 auto" aria-hidden="true">320 × 50 — Ad</div>
+            </div>
+
+            <div class="backup-canvas-wrap">
+              <canvas id="backup-canvas" aria-label="Moving black and white stripes optical sensor animation"></canvas>
+            </div>
+
+            <button id="btn-backup" aria-label="Start optical sensor animation">Start Animation</button>
+            <p id="backup-status" aria-live="polite"></p>
+
+            <!-- Mobile bottom ad -->
+            <div class="ad-mobile-backup ad-wrap" style="margin-top:8px">
+              <div class="ad-placeholder" style="width:320px;height:50px;line-height:50px;font-size:12px;margin:0 auto" aria-hidden="true">320 × 50 — Ad</div>
+            </div>
+
+            <div class="backup-instruction">
+              💡 <strong>How to use on your phone:</strong> Tap Start Animation above → the screen stays awake automatically → flip your mouse upside-down and rest its bottom sensor on the moving stripes. Your mouse will report continuous movement to your computer, keeping Teams green. Works with any optical mouse.
+            </div>
+          </div>
+        </div><!-- /backup-method -->
+
+      </div><!-- /methods-wrapper -->
 
       <!-- Steps -->
       <div class="steps-row fade-up-3">
@@ -342,6 +426,109 @@ kbd{background:var(--bg-subtle);border:1px solid var(--border);border-radius:4px
 <div class="ad-placeholder ad--mobile-sticky" aria-hidden="true">320 × 50 — Mobile Sticky Ad</div>
 
 <script>if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));</script>
+
+<script>
+(function () {
+  var canvas = document.getElementById('backup-canvas');
+  var btn    = document.getElementById('btn-backup');
+  var status = document.getElementById('backup-status');
+  if (!canvas || !btn) return;
+
+  var ctx        = null;
+  var animFrame  = null;
+  var offset     = 0;
+  var running    = false;
+  var wakeLock   = null;
+  var STRIPE_H   = 10;   // px per stripe (black or white)
+  var SPEED      = 2;    // px moved per frame
+
+  /* ── Setup canvas dimensions ── */
+  function resize() {
+    var dpr = window.devicePixelRatio || 1;
+    var cssW = canvas.parentElement.offsetWidth;
+    /* Square: cap at 300px on desktop, full-width on mobile */
+    var maxW = window.innerWidth > 768 ? 300 : cssW;
+    var side = Math.min(cssW, maxW);
+    canvas.style.width  = side + 'px';
+    canvas.style.height = side + 'px';
+    canvas.width  = Math.round(side * dpr);
+    canvas.height = Math.round(side * dpr);
+    ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+  }
+
+  /* ── Draw a frame of moving stripes ── */
+  function draw() {
+    if (!ctx) return;
+    var w = parseFloat(canvas.style.width)  || canvas.offsetWidth;
+    var h = parseFloat(canvas.style.height) || canvas.offsetHeight;
+    var period  = STRIPE_H * 2;
+    var nStripes = Math.ceil(h / STRIPE_H) + 2;
+    for (var i = 0; i < nStripes; i++) {
+      var y = (i * STRIPE_H) - (offset % period);
+      ctx.fillStyle = (i % 2 === 0) ? '#000000' : '#ffffff';
+      ctx.fillRect(0, y, w, STRIPE_H);
+    }
+  }
+
+  /* ── Animation loop ── */
+  function animate() {
+    offset += SPEED;
+    draw();
+    animFrame = requestAnimationFrame(animate);
+  }
+
+  /* ── Request Wake Lock to keep phone screen on ── */
+  function requestWakeLock() {
+    if ('wakeLock' in navigator) {
+      navigator.wakeLock.request('screen').then(function (wl) {
+        wakeLock = wl;
+        wl.addEventListener('release', function () { wakeLock = null; });
+      }).catch(function () {});
+    }
+  }
+
+  /* ── Start ── */
+  function start() {
+    running = true;
+    btn.textContent = 'Stop Animation';
+    btn.classList.add('running');
+    status.textContent = '▶ Running — place your mouse sensor on the screen';
+    requestWakeLock();
+    resize();
+    animate();
+  }
+
+  /* ── Stop ── */
+  function stop() {
+    running = false;
+    if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+    if (wakeLock)  { try { wakeLock.release(); } catch(e){} wakeLock = null; }
+    btn.textContent = 'Start Animation';
+    btn.classList.remove('running');
+    status.textContent = '';
+    /* redraw static preview */
+    offset = 0;
+    draw();
+  }
+
+  btn.addEventListener('click', function () {
+    if (!running) { start(); } else { stop(); }
+  });
+
+  /* Re-acquire wake lock if tab becomes visible again */
+  document.addEventListener('visibilitychange', function () {
+    if (running && document.visibilityState === 'visible' && !wakeLock) {
+      requestWakeLock();
+    }
+  });
+
+  /* Draw static preview on load */
+  window.addEventListener('load', function () { resize(); draw(); });
+  window.addEventListener('resize', function () { if (running) { resize(); } });
+})();
+</script>
+
 <script src="js/main.js" defer></script>
 <script src="js/jiggler.js" defer></script>
 </body></html>
