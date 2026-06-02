@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Picture-in-Picture Keeps Your Screen Awake (The Clever Trick Explained) | KeepAwake</title>
+<meta name="description" content="Why a floating video window is one of the most reliable ways to prevent sleep mode — and how KeepAwake uses it alongside Wake Lock to guarantee your Teams status stays green.">
+<link rel="canonical" href="https://keepawake.app/blog/picture-in-picture-keep-screen-awake">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How Picture-in-Picture Keeps Your Screen Awake (The Clever Trick Explained)","datePublished":"January 2025","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>Technology</span></div>
+    <div class="page-hero__label">Technology</div>
+    <h1 class="page-hero__title">How Picture-in-Picture Keeps Your Screen Awake (The Clever Trick Explained)</h1>
+    <p class="page-hero__desc">6 min read · January 2025 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>If you look at how KeepAwake works under the hood, you'll notice it uses multiple techniques simultaneously — and one of them is Picture-in-Picture (PiP) video. Why does a floating video window prevent your computer from sleeping? The answer is more interesting than it might seem.</p>
+
+    <h2>What Is Picture-in-Picture in This Context?</h2>
+    <p>Picture-in-Picture is a browser feature that lets you detach a video element from a web page into a floating overlay window that stays on top of other windows. You've probably seen it on YouTube — the small video that follows you as you navigate away from the page.</p>
+    <p>KeepAwake generates a small, silent video element (a canvas-based animation rendered as a video stream) and places it in a PiP window. This 1×1 pixel window floats invisibly in a corner of your screen. To your operating system, an active PiP session signals that media is actively playing — and that signal has a direct effect on sleep behavior.</p>
+
+    <h2>Why Operating Systems Treat Active Media Differently</h2>
+    <p>Operating systems have always needed to handle the "movie watching" use case — a user sitting still, not touching keyboard or mouse, watching a two-hour film. Without special handling, the OS would sleep the screen halfway through every movie.</p>
+    <p>The solution operating systems implemented: applications that are playing media can register themselves as "active media sessions" with the OS. When an active media session is registered, the OS suppresses its display sleep and idle detection timers. Windows does this through the Windows Media Session API; macOS does it through AVFoundation and MediaRemote.</p>
+    <p>Browsers — Chrome, Edge, Firefox, and Safari — all participate in this system. When a browser has an active video element playing (even a silent, invisible one), it registers an active media session with the OS. The OS responds by keeping the display on and the system active, just as it would for Netflix or VLC.</p>
+
+    <h2>Picture-in-Picture Is More Persistent Than a Regular Video Element</h2>
+    <p>A regular video element playing in a browser tab works to suppress sleep, but it has a vulnerability: if the browser tab is backgrounded, throttled, or if Chrome's background tab optimization kicks in, the video element may be paused or throttled. When that happens, the media session registration lapses, and the OS may resume sleep behavior.</p>
+    <p>Picture-in-Picture bypasses this entirely. A PiP session is architecturally separate from the browser tab that created it — it persists as an active window even when the originating tab is backgrounded, minimized, or throttled. The OS sees an active, playing PiP session and maintains the wake state regardless of what happens to the browser tab.</p>
+    <p>This is why PiP is a more reliable technique than simply playing a video in a background tab, and why KeepAwake uses it as one of its five simultaneous approaches.</p>
+
+    <h2>Browser Support for PiP as a Keep-Awake Technique</h2>
+    <p>The Picture-in-Picture API is supported in Chrome, Edge, Firefox, and Safari. However, the behavior around automatic PiP activation varies — most browsers require a user gesture (a click) to initiate PiP for the first time. KeepAwake handles this by activating PiP when you click the Start button, satisfying the user gesture requirement.</p>
+    <p>Safari on iOS has restrictions on background PiP behavior that can affect reliability on mobile — but for desktop use cases (keeping Teams active on a work laptop), Safari on macOS works well.</p>
+
+    <h2>Why Five Techniques Are Better Than One</h2>
+    <p>KeepAwake runs Wake Lock, Picture-in-Picture, Web Worker heartbeat, AudioContext, and Canvas animation simultaneously. Why all five?</p>
+    <p>Each technique has failure cases. Wake Lock requires Chrome or Edge for full reliability. PiP requires video support and a user gesture. AudioContext can be suspended by browsers in low-power mode. Canvas animation can be throttled in deeply backgrounded tabs. The Web Worker heartbeat can be throttled on older devices.</p>
+    <p>Running all five means that even if two or three fail in a specific environment — an older browser, an aggressive corporate power management policy, a low-power laptop mode — the remaining techniques continue to suppress OS sleep. The result is that KeepAwake works reliably across the full range of corporate and personal environments without needing configuration.</p>
+
+    <h2>What You See vs What the OS Sees</h2>
+    <p>From your perspective, when KeepAwake is running with PiP active, you might see a tiny floating window in a corner of your screen — or you might not notice it at all if it's positioned off-screen or behind other windows. From the OS's perspective, there's an active media session, an active wake lock request, and ongoing browser activity — all of which combine to suppress every sleep and idle trigger that Teams and Slack use to set your status to Away.</p>
+
+    <div class="teams-tip"><strong>See it in action:</strong> <a href="/">KeepAwake</a> activates PiP automatically when you click Start. The technique dashboard shows its status — green means your OS is receiving the media session signal.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PowerShell Mouse Jiggler: Does It Work, and What's Better? | KeepAwake</title>
+<meta name="description" content="PowerShell scripts for simulating mouse movement are popular — but most don't actually work for Teams Desktop. Here's the technical reason why, and what to use instead.">
+<link rel="canonical" href="https://keepawake.app/blog/powershell-mouse-jiggler-alternative">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"PowerShell Mouse Jiggler: Does It Work, and What's Better?","datePublished":"December 2024","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>How-To</span></div>
+    <div class="page-hero__label">How-To</div>
+    <h1 class="page-hero__title">PowerShell Mouse Jiggler: Does It Work, and What's Better?</h1>
+    <p class="page-hero__desc">7 min read · December 2024 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>If you search for "keep Teams active PowerShell" or "mouse jiggler script Windows," you'll find dozens of scripts circulating on GitHub, Reddit, and tech forums. They look straightforward and free. But there's a specific technical reason why most of them don't reliably work for Microsoft Teams Desktop — and understanding that reason will save you a lot of frustration.</p>
+
+    <h2>The Most Common PowerShell Approach (And Why It Fails)</h2>
+    <p>The most widely shared PowerShell jiggler script uses the Windows Script Host's <code>SendKeys</code> method through .NET's <code>System.Windows.Forms</code>:</p>
+    <pre style="background:var(--bg-subtle);padding:16px;border-radius:8px;font-family:var(--font-mono);font-size:12px;overflow-x:auto;margin:16px 0"><code>Add-Type -AssemblyName System.Windows.Forms
+while ($true) {
+    [System.Windows.Forms.SendKeys]::SendWait('+{F15}')
+    Start-Sleep -Seconds 60
+}</code></pre>
+    <p>This sends a Shift+F15 keystroke (an obscure key combination unlikely to do anything in most apps) every 60 seconds. The intent is to simulate keyboard activity and reset the idle timer.</p>
+    <p><strong>The problem:</strong> <code>SendKeys</code> in Windows Forms sends application-level input events — it injects keystrokes into the currently focused application's message queue, but it does not update the Windows low-level input state that the <code>GetLastInputInfo()</code> API reads.</p>
+    <p>Microsoft Teams Desktop uses <code>GetLastInputInfo()</code> (or the equivalent Electron API wrapper around it) to determine system idle time. This API specifically measures genuine hardware input from the keyboard and mouse driver layer. Application-level simulated input, including <code>SendKeys</code>, does not update this counter.</p>
+    <p>In practice: the script runs, the keystrokes are sent somewhere, but Teams' idle counter keeps counting because the OS hardware input layer never received anything. After 5 minutes, Teams goes Away anyway.</p>
+
+    <h2>The Win32 SetCursorPos Approach (Slightly Better)</h2>
+    <p>A more technically sophisticated approach uses Win32 API calls to actually move the cursor position:</p>
+    <pre style="background:var(--bg-subtle);padding:16px;border-radius:8px;font-family:var(--font-mono);font-size:12px;overflow-x:auto;margin:16px 0"><code>Add-Type @"
+  using System;
+  using System.Runtime.InteropServices;
+  public class Win32 {
+    [DllImport("user32.dll")]
+    public static extern bool SetCursorPos(int x, int y);
+  }
+"@
+while ($true) {
+    [Win32]::SetCursorPos(500, 500)
+    Start-Sleep -Seconds 55
+    [Win32]::SetCursorPos(501, 501)
+    Start-Sleep -Seconds 5
+}</code></pre>
+    <p>This calls <code>SetCursorPos</code> directly, which does update the cursor position at the Win32 level. This works better — it registers as input in the low-level input layer and does reset <code>GetLastInputInfo()</code> on most Windows versions.</p>
+    <p><strong>The caveats:</strong> It visibly moves your cursor every 60 seconds, which is distracting and obvious on video calls. It requires PowerShell execution policy to allow script execution — most corporate laptops have execution policy set to <code>Restricted</code> or <code>AllSigned</code>, which blocks unsigned scripts. Running it requires either changing execution policy (usually requires admin rights) or using <code>-ExecutionPolicy Bypass</code> (which may trigger endpoint security alerts).</p>
+
+    <h2>The mouse_event / SendInput Approach (Most Reliable Scripted Option)</h2>
+    <p>The Win32 <code>SendInput</code> function is the proper low-level API for simulating input events in a way that fully satisfies OS-level idle detection. Calling it correctly does update the hardware input state that Teams reads. However, a correct <code>SendInput</code> implementation in PowerShell requires more complex P/Invoke declarations and is rarely written correctly in the scripts that circulate online.</p>
+    <p>Even when implemented correctly: the execution policy problem remains, the cursor still moves visibly, and IT endpoint monitoring tools are specifically designed to flag unusual input simulation patterns — including legitimate <code>SendInput</code> calls from non-standard processes.</p>
+
+    <h2>Why a Browser-Based Solution Is Superior in Practice</h2>
+    <p>For corporate remote workers, the practical advantages of a browser-based approach like KeepAwake over PowerShell scripts are significant:</p>
+    <ul>
+      <li><strong>No execution policy:</strong> Browser tabs don't require PowerShell permissions. Any corporate device that lets you open a browser can run KeepAwake.</li>
+      <li><strong>No IT security flags:</strong> The Screen Wake Lock API and Picture-in-Picture are standard web features used by Netflix, YouTube, and every major video site. They don't trigger endpoint security alerts.</li>
+      <li><strong>No visible cursor movement:</strong> Wake Lock works at the OS permission level — no simulated input, no cursor jumping around.</li>
+      <li><strong>Reliable mechanism:</strong> Wake Lock specifically addresses the OS sleep signal that Teams reads. It doesn't rely on correctly timing mouse movements or navigating Windows' input simulation quirks.</li>
+      <li><strong>Cross-platform:</strong> Works the same on Windows and macOS without platform-specific code.</li>
+    </ul>
+
+    <h2>When PowerShell Scripts Actually Make Sense</h2>
+    <p>PowerShell jigglers aren't entirely without merit. If you're on a personal device where you control execution policy, you prefer local scripts over browser tabs, and you don't mind the cursor moving — a correctly implemented <code>SendInput</code>-based script works reliably. For developers comfortable with Windows scripting who want a no-browser solution, it's a viable option.</p>
+    <p>For the vast majority of remote workers on corporate devices, the browser-based approach removes every friction point: no permissions, no installation, no IT tickets, no cursor jumping. Open KeepAwake, click Start, get back to work.</p>
+
+    <div class="teams-tip"><strong>No PowerShell needed:</strong> <a href="/">KeepAwake</a> uses browser-standard APIs that work on any corporate laptop — no scripts, no admin rights, no cursor movement. Just open and click Start.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

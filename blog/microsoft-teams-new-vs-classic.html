@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microsoft Teams New vs Classic: Presence Differences That Matter for Remote Workers | KeepAwake</title>
+<meta name="description" content="The new Teams app (2023+) handles presence, idle detection, and status differently from Classic Teams. Here's what changed and what it means for keeping your status green.">
+<link rel="canonical" href="https://keepawake.app/blog/microsoft-teams-new-vs-classic">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Microsoft Teams New vs Classic: Presence Differences That Matter for Remote Workers","datePublished":"April 2025","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>Microsoft Teams</span></div>
+    <div class="page-hero__label">Microsoft Teams</div>
+    <h1 class="page-hero__title">Microsoft Teams New vs Classic: Presence Differences That Matter for Remote Workers</h1>
+    <p class="page-hero__desc">8 min read · April 2025 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>In 2023, Microsoft began rolling out "New Teams" — a rebuilt version of the Microsoft Teams desktop client with significantly improved performance, based on a new architecture. By 2024, New Teams became the default for most Microsoft 365 users, with Classic Teams officially retired for most plans. If you've noticed different presence behavior after an automatic update, this is why — and the differences matter for how you manage your status.</p>
+
+    <h2>The Architecture Change That Changed Presence</h2>
+    <p>Classic Teams was built on Electron — the same framework that powers Slack, VS Code, and many other desktop apps. Electron bundles a full Chromium browser alongside Node.js to run web applications as desktop apps. It works, but it's resource-heavy and has its own layer of abstraction between the app and OS APIs.</p>
+    <p>New Teams is built on Edge WebView2, a lighter Microsoft-developed approach that uses the system's existing Edge browser engine rather than bundling a separate one. The key difference for presence behavior: New Teams has deeper, more direct integration with Windows APIs and the Microsoft 365 ecosystem. It reads OS idle state more accurately, processes calendar events more reliably, and handles the transition between presence states more smoothly.</p>
+
+    <h2>What Changed in Presence Detection</h2>
+
+    <h3>More Accurate OS Idle Reading</h3>
+    <p>Classic Teams had a known issue where it would sometimes fail to pick up OS idle state changes promptly — meaning it might take 6–8 minutes to flip to Away after your computer went idle, rather than the intended 5 minutes. New Teams is more precise. The flip to Away happens closer to the 5-minute mark consistently. This sounds neutral or even negative, but in practice it means the behavior is more predictable and easier to address: prevent the 5-minute idle trigger reliably, and New Teams stays green reliably.</p>
+
+    <h3>Improved Cross-Device Presence</h3>
+    <p>New Teams handles multi-device presence significantly better than Classic. When you're active on Teams Mobile while your desktop is idle, New Teams on the desktop correctly shows you as Active based on mobile activity. Classic Teams had inconsistent behavior here — sometimes the mobile activity would propagate to desktop presence status, sometimes it wouldn't.</p>
+    <p>For remote workers who are on phone calls or away from their desk but still reachable via Teams Mobile, this improvement means the status is more likely to accurately reflect actual availability without manual intervention.</p>
+
+    <h3>Calendar Integration Accuracy</h3>
+    <p>New Teams' Microsoft 365 calendar integration is tighter. Meeting status changes — switching to "In a meeting" when a calendar event starts, returning to Available when it ends — happen with lower latency and higher reliability than in Classic Teams. The calendar-based status now also correctly handles back-to-back meetings, tentative meetings, and meetings you've declined.</p>
+
+    <h3>The "Focus" Status and Windows Focus Assist</h3>
+    <p>New Teams introduced deeper integration with Windows Focus Assist (now called "Do Not Disturb" in Windows 11). When Windows DND is active, New Teams can automatically mirror this with a Teams "Focusing" status. Conversely, setting Teams to "Do Not Disturb" can optionally enable Windows Focus Assist — suppressing system-level notifications simultaneously.</p>
+    <p>This integration is useful for remote workers who use Windows Focus Assist during deep work sessions: one setting propagates to both the OS notification layer and the Teams presence layer automatically.</p>
+
+    <h2>The Idle Timer: Same Mechanism, More Reliable</h2>
+    <p>The fundamental idle detection mechanism in New Teams is the same as Classic Teams — it reads Windows' <code>GetLastInputInfo()</code> API (or macOS equivalent) and transitions to Away after approximately 5 minutes of no hardware input. What changed is reliability and consistency, not the underlying mechanism.</p>
+    <p>This means the same solutions that worked for Classic Teams work for New Teams. A browser-based keep-awake tool using Wake Lock API prevents OS idle detection, which prevents New Teams from receiving the idle signal. The more precise idle detection in New Teams actually makes this solution more effective: prevent the 5-minute trigger accurately, and the status genuinely never changes.</p>
+
+    <h2>Settings That Moved or Changed</h2>
+    <p>Some presence-related settings moved between Classic and New Teams. If you configured settings in Classic Teams and then noticed they weren't carrying over:</p>
+    <ul>
+      <li><strong>Privacy settings</strong> (who can see your presence): now under Settings → Privacy → Contacts. Behavior is the same, location changed.</li>
+      <li><strong>Notification settings</strong>: substantially reorganized in New Teams under Settings → Notifications &amp; Activity. Per-app and per-channel notification controls are now more granular.</li>
+      <li><strong>Status duration</strong>: manual status with duration still works the same way — click your profile picture, click your status, set duration. The UI is slightly different but the functionality is identical.</li>
+    </ul>
+
+    <h2>What This Means Practically</h2>
+    <p>If you recently moved to New Teams and noticed different idle behavior — either more precise Away transitions or improved cross-device syncing — the architecture change explains it. The solution remains the same: prevent OS-level idle detection during work hours, and your Teams status will accurately reflect your availability regardless of whether you're on Classic or New Teams.</p>
+    <p>For most remote workers, the New Teams upgrade is a net positive for presence accuracy. The improvements to cross-device syncing, calendar integration, and Focus Assist integration mean the status system works more correctly with less manual management. Pair it with a keep-awake tool during keyboard-inactive work periods, and the status stays accurate all day.</p>
+
+    <div class="teams-tip"><strong>Works with New and Classic Teams:</strong> <a href="/">KeepAwake</a> prevents OS idle detection at the system level — the same mechanism both Teams versions read. Upgrade-proof and effective on any Teams version.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

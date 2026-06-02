@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Workers and Background Timers: How KeepAwake Survives Browser Tab Throttling | KeepAwake</title>
+<meta name="description" content="Why browser tabs get throttled when backgrounded, how Web Workers bypass throttling, and why this makes a real difference for keeping Teams active all day.">
+<link rel="canonical" href="https://keepawake.app/blog/web-worker-keep-awake-explained">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Web Workers and Background Timers: How KeepAwake Survives Browser Tab Throttling","datePublished":"June 2025","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>Technology</span></div>
+    <div class="page-hero__label">Technology</div>
+    <h1 class="page-hero__title">Web Workers and Background Timers: How KeepAwake Survives Browser Tab Throttling</h1>
+    <p class="page-hero__desc">7 min read · June 2025 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>Modern browsers are aggressive about saving power. When you switch away from a browser tab, Chrome and Edge begin throttling it — slowing down JavaScript timers, pausing animations, and limiting background processing. For a keep-awake tool that relies on JavaScript running reliably in the background, this is a significant challenge. Here's how KeepAwake's Web Worker technique solves it.</p>
+
+    <h2>The Browser Throttling Problem</h2>
+    <p>When a browser tab becomes inactive — you switch to another tab, minimize the window, or leave it in the background — the browser applies a series of optimizations to reduce CPU and battery usage. For <code>setTimeout</code> and <code>setInterval</code> calls in inactive tabs, Chrome limits firing frequency to a minimum of 1 second for tabs that have been background for less than 5 minutes, and then progressively throttles more aggressively — up to 1-minute minimum intervals for tabs that have been backgrounded for extended periods.</p>
+    <p>For a keep-awake tool that needs to maintain a steady heartbeat signal — periodically reinforcing the wake lock request, refreshing the Picture-in-Picture session, or signaling activity through an AudioContext — this throttling creates gaps. A timer that's supposed to fire every 30 seconds might only fire every 60 seconds, or less, after extended backgrounding.</p>
+    <p>In practice: a keep-awake tool that uses only page-level JavaScript timers can become unreliable if the browser tab is backgrounded for a long time. The tool appears to be running, but its internal heartbeat has been choked, and the underlying keep-awake signals start to lapse.</p>
+
+    <h2>What Web Workers Are</h2>
+    <p>A Web Worker is a JavaScript runtime that operates in a separate thread from the main browser page. It was designed for computationally intensive work that would otherwise block the user interface — things like image processing, data parsing, or complex calculations. But Web Workers have a property that's directly relevant to keep-awake tools: <strong>they are explicitly exempt from background tab throttling</strong>.</p>
+    <p>According to the HTML specification, timers inside Web Workers are not subject to the same throttling rules as timers in page scripts. A <code>setInterval</code> running inside a Web Worker continues to fire at its specified interval regardless of how long the tab has been backgrounded, regardless of whether the tab is minimized, and regardless of the browser's aggressive power-saving optimizations.</p>
+    <p>This is by design — Web Workers are intended for background processing that needs to run reliably. The spec authors explicitly carved them out of throttling rules for this reason.</p>
+
+    <h2>How KeepAwake Uses This</h2>
+    <p>KeepAwake runs a Web Worker that acts as a reliable heartbeat timer. Even when the KeepAwake browser tab is backgrounded and the page's own JavaScript is being throttled, the Web Worker continues firing at regular intervals. These heartbeat signals are used to:</p>
+    <ul>
+      <li>Periodically re-request the Screen Wake Lock (wake lock requests can lapse if not maintained)</li>
+      <li>Check whether the Picture-in-Picture session is still active and reinitiate it if it has been closed</li>
+      <li>Keep the AudioContext active, preventing the browser from suspending it during extended inactivity</li>
+      <li>Post a message back to the main page thread to trigger any additional refresh logic</li>
+    </ul>
+    <p>The result is that KeepAwake's keep-awake signals remain consistent and reliable even after hours of the tab sitting in the background — no drift, no degradation, no "it stopped working at some point in the afternoon."</p>
+
+    <h2>Why This Matters in Practice</h2>
+    <p>Consider a typical remote work scenario: you open KeepAwake at 9am, click Start, then minimize the browser. You're now working in other applications all day — Word, Outlook, Teams Desktop. The KeepAwake tab is sitting backgrounded in a Chrome window you never switch to.</p>
+    <p>Without Web Worker heartbeat: By mid-afternoon, Chrome's background throttling has progressively choked the page's JavaScript. The wake lock request has lapsed, the PiP session has timed out, and your Teams status has quietly flipped to Away — without any indication that the tool has stopped working.</p>
+    <p>With Web Worker heartbeat: The Worker's timer fires unthrottled throughout the day. Every 30 seconds it reinitializes any lapsed signals. The wake lock stays active, the PiP session stays running, and your Teams status remains green continuously from 9am to end of day.</p>
+
+    <h2>The Five-Technique Defense-in-Depth Model</h2>
+    <p>KeepAwake's five simultaneous techniques — Wake Lock, Picture-in-Picture, Web Worker heartbeat, AudioContext, and Canvas animation — aren't redundant by accident. They represent a defense-in-depth approach where each technique covers a specific failure mode that the others might not catch:</p>
+    <ul>
+      <li><strong>Wake Lock</strong> is the primary OS-level signal, but can lapse without maintenance</li>
+      <li><strong>Picture-in-Picture</strong> provides OS media session signaling, but requires an active video stream</li>
+      <li><strong>Web Worker</strong> provides the reliable heartbeat that keeps the others alive under throttling</li>
+      <li><strong>AudioContext</strong> provides an audio session signal for environments where Wake Lock has limited support</li>
+      <li><strong>Canvas animation</strong> provides a baseline browser activity signal as a last resort</li>
+    </ul>
+    <p>The combination means that even in adversarial environments — aggressive corporate power management, older browsers, long-backgrounded tabs, low-power mode — at least two or three techniques remain active and effective. The practical result is the same regardless of your specific environment: your status stays green all day.</p>
+
+    <h2>A Note on Service Workers</h2>
+    <p>A Service Worker is a related but different concept — it's a worker that persists even after the browser tab is closed, used for push notifications and offline caching. KeepAwake uses a regular Web Worker rather than a Service Worker because the goal is to maintain signals only while the tab is actively open, not to persist background processes after the user has closed it. This is both the technically correct approach and the more privacy-respecting one.</p>
+
+    <div class="teams-tip"><strong>Reliable all day:</strong> <a href="/">KeepAwake</a>'s Web Worker heartbeat keeps all five techniques active even after hours of the tab being backgrounded. Open once, works all day.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

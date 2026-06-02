@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How AudioContext Prevents Your Computer From Sleeping (Without Making a Sound) | KeepAwake</title>
+<meta name="description" content="The Web Audio API trick that keeps your screen awake silently — how an inaudible audio session stops your OS from sleeping and keeps Teams active, even on Firefox and Safari.">
+<link rel="canonical" href="https://keepawake.app/blog/audio-context-keep-screen-awake">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How AudioContext Prevents Your Computer From Sleeping (Without Making a Sound)","datePublished":"May 2025","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>Technology</span></div>
+    <div class="page-hero__label">Technology</div>
+    <h1 class="page-hero__title">How AudioContext Prevents Your Computer From Sleeping (Without Making a Sound)</h1>
+    <p class="page-hero__desc">6 min read · May 2025 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>Of KeepAwake's five simultaneous techniques, AudioContext is the most counterintuitive. It creates an active audio session in your browser — without playing any audible sound — and that silent session signals to your operating system that audio is actively in use. The OS responds by suppressing its sleep and idle timers. Here's how it works in detail.</p>
+
+    <h2>What Is the Web Audio API?</h2>
+    <p>The Web Audio API is a browser standard for creating, processing, and manipulating audio in web applications. It's used by browser-based music tools, games, audio editors, and communication apps. At its core is the <code>AudioContext</code> — an audio processing graph that manages the creation and routing of audio signals.</p>
+    <p>When an <code>AudioContext</code> is created and active in a browser, the browser registers an active audio session with the operating system — similar to how a music player or video call registers audio usage. The OS tracks active audio sessions as part of its power management logic: an application using audio is considered active, not idle.</p>
+
+    <h2>Silent Audio: The Trick That Keeps Systems Awake</h2>
+    <p>The key insight: an <code>AudioContext</code> doesn't need to produce audible output to maintain an active audio session. KeepAwake creates an AudioContext with a gain node set to zero volume — technically active, producing a valid audio graph, but outputting complete silence. No sound plays. No audio plays through your speakers or headphones. But from the OS perspective, there is an active audio session in progress.</p>
+    <p>This matters because operating systems on both Windows and macOS treat active audio sessions as a signal to suppress aggressive sleep behavior. The logic mirrors the movie-watching scenario: if audio is actively playing, the system should stay awake. The OS doesn't distinguish between a silent audio session and an audible one — the session registration is what matters.</p>
+    <p>This is a well-established technique. Browser-based communication tools like Google Meet and older versions of WebRTC applications used similar AudioContext tricks to maintain connection state during periods of no actual audio transmission.</p>
+
+    <h2>Why AudioContext Matters Specifically for Firefox and Safari</h2>
+    <p>The Screen Wake Lock API — KeepAwake's primary technique — has full support in Chrome and Edge, but more limited behavior in Firefox and Safari. Firefox added Wake Lock support in 2024; Safari on macOS supports it but with some behavioral differences, particularly around how aggressively it's honored during low-power mode.</p>
+    <p>AudioContext support, by contrast, is universal and has been stable across all major browsers for years. On Firefox and Safari where Wake Lock behavior may be inconsistent, AudioContext provides a reliable fallback that achieves similar OS-level effects through the audio session path rather than the wake lock path.</p>
+    <p>The combination means: Wake Lock handles Chrome and Edge comprehensively; AudioContext handles Firefox and Safari reliably; Picture-in-Picture provides an additional media session signal that works across all browsers. Together, they cover the full browser compatibility matrix without requiring any browser-specific configuration from the user.</p>
+
+    <h2>AudioContext Suspension: The Challenge</h2>
+    <p>Browsers are aware that AudioContext can be used to keep systems awake, and they've added countermeasures. Chrome and Firefox will suspend an AudioContext that has had no user interaction for a period — typically after 30 seconds to a few minutes of no user gesture in the tab. A suspended AudioContext no longer registers as an active audio session.</p>
+    <p>KeepAwake addresses this through its Web Worker heartbeat. The Worker fires a message to the main page thread at regular intervals, which triggers a check on the AudioContext state. If the AudioContext has been suspended, it's immediately resumed. This resume call is triggered programmatically rather than requiring a user click, which works because it happens within the same browsing context that originally created the AudioContext.</p>
+    <p>The result: the AudioContext stays active throughout the day, even after extended periods of the KeepAwake tab being backgrounded, because the Web Worker's throttle-immune timer continuously ensures it hasn't been suspended.</p>
+
+    <h2>What This Means for Battery Life</h2>
+    <p>A common concern: does an active AudioContext drain battery? The answer is minimal impact. A silent AudioContext with a gain node set to zero produces no audio output and uses negligible CPU. The audio processing graph is essentially idle — it's registered as active with the OS, but it's not doing any actual signal processing work. The power cost is comparable to a browser tab being open, not comparable to actually playing audio.</p>
+    <p>For context: the Screen Wake Lock, when active, has a larger battery impact than AudioContext because it prevents the display from dimming. AudioContext's contribution to battery usage is in the noise.</p>
+
+    <h2>Five Techniques Working in Concert</h2>
+    <p>AudioContext doesn't work alone — it's one layer in KeepAwake's defense-in-depth approach. Wake Lock provides the primary OS-level signal. Picture-in-Picture provides the media session signal. Web Worker provides the heartbeat that keeps all other techniques alive under throttling. Canvas animation provides a visual activity signal. AudioContext provides the audio session signal as an additional OS-level pathway.</p>
+    <p>No single technique covers every browser, every OS version, and every corporate power management configuration. The five together cover the entire realistic matrix of environments that remote workers encounter. That's the design intent, and it's why KeepAwake works consistently where simpler single-technique tools sometimes don't.</p>
+
+    <div class="teams-tip"><strong>Silent but effective:</strong> <a href="/">KeepAwake</a>'s AudioContext technique keeps your OS awake without playing a single sound. Open it, click Start, and go back to work.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

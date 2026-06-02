@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Keep Your Slack Status Active (And Why It Goes Away) | KeepAwake</title>
+<meta name="description" content="Slack's away detection works differently from Teams. Here's the exact mechanism, every method to stay Active, and what actually works on corporate laptops.">
+<link rel="canonical" href="https://keepawake.app/blog/slack-status-green-how-to">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Keep Your Slack Status Active (And Why It Goes Away)","datePublished":"February 2025","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>Slack</span></div>
+    <div class="page-hero__label">Slack</div>
+    <h1 class="page-hero__title">How to Keep Your Slack Status Active (And Why It Goes Away)</h1>
+    <p class="page-hero__desc">7 min read · February 2025 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>Slack and Microsoft Teams both show presence status, but they use different mechanisms to detect activity — and what works to keep one green doesn't always work for the other. If you're trying to stay Active on Slack, here's exactly what you need to know.</p>
+
+    <h2>How Slack Detects Activity</h2>
+    <p>Slack's presence detection works on two levels. First, it monitors whether the Slack desktop app or web tab is the active, focused window on your computer. Second, it monitors general OS activity signals — keyboard and mouse input — similar to Teams.</p>
+    <p>When you haven't been active in the Slack app for a period (roughly 10–30 minutes, depending on your plan and settings), Slack marks you as Away. The exact timeout is longer than Teams' 5 minutes, which gives you more flexibility — but the fundamental mechanism is similar.</p>
+    <p>Importantly, Slack Web (in a browser tab) and Slack Desktop behave slightly differently. Slack Desktop has direct access to OS activity APIs, similar to Teams Desktop. Slack Web is constrained to browser-level activity detection, which means it relies more on tab focus and browser-reported activity signals.</p>
+
+    <h2>The Three Slack Status States</h2>
+    <p><strong>Active (green dot):</strong> You're online and have been recently active in Slack. Messages show as delivered immediately. Colleagues see you as reachable.</p>
+    <p><strong>Away (grey clock icon):</strong> Slack hasn't detected activity for the inactivity timeout period. Messages are still delivered but Slack shows you as Away. Colleagues may hesitate to message expecting an immediate reply.</p>
+    <p><strong>Do Not Disturb (grey moon):</strong> You've set a DND schedule or manually enabled DND. Notifications are suppressed. Colleagues can still send messages but they won't notify you until DND ends.</p>
+
+    <h2>Method 1: Adjust Slack's Inactivity Timeout</h2>
+    <p>Unlike Teams, Slack lets you configure the inactivity timeout directly in its settings — this is one of its more underused features.</p>
+    <ul>
+      <li>Open Slack and go to <strong>Preferences</strong> (Ctrl+, on Windows, Cmd+, on Mac)</li>
+      <li>Navigate to <strong>Notifications</strong></li>
+      <li>Scroll to <strong>"When I'm not active on desktop"</strong></li>
+      <li>Change the timeout — options typically include 1 minute, 5 minutes, 30 minutes, 1 hour, or 2 hours</li>
+    </ul>
+    <p>Setting this to 2 hours means Slack won't mark you Away until you've been truly inactive for two hours. For most remote workers, this single change solves the problem without any additional tools. The caveat: "not active on desktop" still means the Slack app or a browser tab with Slack needs to be open and receive periodic focus.</p>
+
+    <h2>Method 2: Keep a Slack Tab or Window Active</h2>
+    <p>If you use Slack Web in a browser, keeping the Slack tab as the active foreground tab prevents the web app's own activity timer from firing. This is impractical if you're doing other work — you can't have Slack be your active tab all day. But combined with Method 1 (a long timeout), it significantly reduces how often Slack marks you Away.</p>
+
+    <h2>Method 3: Use a Browser Keep-Awake Tool</h2>
+    <p>The most comprehensive solution is the same one that works for Teams: prevent OS-level idle detection entirely. When your OS never registers idle state, Slack Desktop never sees an inactivity signal from the system APIs, and Slack Web's browser-level activity detection also stays satisfied.</p>
+    <p>KeepAwake's Wake Lock API approach prevents the OS idle state that Slack Desktop reads. For Slack Web users, the combination of Wake Lock (preventing OS idle) and periodic Canvas animation (maintaining browser-level activity) keeps the Slack tab reporting as active.</p>
+
+    <h2>Method 4: Slack's Scheduled DND (Reverse Engineering Presence)</h2>
+    <p>A counterintuitive approach: use Slack's DND schedule to define your working hours explicitly. Set DND from 7pm to 9am (outside your work hours). This means during work hours, Slack never automatically suppresses notifications based on schedule — and colleagues see you as actively available during those defined hours, rather than getting Away signals.</p>
+    <p>This doesn't prevent the inactivity Away status directly, but it communicates your schedule clearly and prevents Slack from automatically going into DND during work hours for schedule-related reasons.</p>
+
+    <h2>Slack vs Teams: Key Differences</h2>
+    <ul>
+      <li><strong>Timeout:</strong> Slack's default inactivity timeout (~10–30 min) is longer than Teams' (~5 min), giving more buffer</li>
+      <li><strong>Configurable timeout:</strong> Slack lets you adjust the timeout in settings; Teams does not expose this setting</li>
+      <li><strong>Mobile sync:</strong> Slack's mobile app activity updates your desktop status more aggressively than Teams — being active on Slack mobile will keep your desktop status Active</li>
+      <li><strong>Focus mode:</strong> Teams has a "Focus" status tied to Windows Focus Assist; Slack has DND with scheduling but no equivalent Focus status</li>
+    </ul>
+
+    <h2>Custom Status Messages on Slack</h2>
+    <p>Slack's custom status feature is more flexible than Teams'. You can set an emoji + text message and a duration, after which it auto-clears. Effective remote workers use this to communicate context without changing their presence state: "📞 On calls this afternoon" or "📖 Deep work until 3pm — slow replies" gives colleagues useful information while you stay Active.</p>
+    <p>To set it: click your profile picture → "Update your status." You can save frequently used statuses for quick access.</p>
+
+    <div class="teams-tip"><strong>Works for Slack and Teams:</strong> <a href="/">KeepAwake</a> prevents OS idle detection, keeping both your Slack and Teams status active simultaneously. One tool, both platforms.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

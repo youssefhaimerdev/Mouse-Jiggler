@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Prevent Your Computer From Sleeping on Windows & Mac | KeepAwake</title>
+<meta name="description" content="Every method for preventing sleep on Windows and Mac — from built-in power settings to browser-based solutions that work even when IT has locked down your settings.">
+<link rel="canonical" href="https://keepawake.app/blog/prevent-computer-from-sleeping-windows-mac">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Prevent Your Computer From Sleeping on Windows & Mac","datePublished":"March 2025","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>How-To</span></div>
+    <div class="page-hero__label">How-To</div>
+    <h1 class="page-hero__title">How to Prevent Your Computer From Sleeping on Windows & Mac</h1>
+    <p class="page-hero__desc">8 min read · March 2025 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>Your computer going to sleep is the underlying cause of a chain of problems: Teams shows Away, Slack goes inactive, your screen locks mid-presentation, downloads pause, and remote desktop sessions disconnect. Here's every method to prevent it, starting with the most accessible and working down to alternatives for locked corporate devices.</p>
+
+    <h2>Windows: Built-In Power Settings</h2>
+    <p>The most direct approach on Windows is adjusting Power & Sleep settings:</p>
+    <ul>
+      <li>Press <strong>Windows + I</strong> to open Settings</li>
+      <li>Go to <strong>System → Power &amp; Sleep</strong></li>
+      <li>Under "Screen," set to <strong>Never</strong> (while plugged in)</li>
+      <li>Under "Sleep," set to <strong>Never</strong> (while plugged in)</li>
+    </ul>
+    <p>This is the simplest solution if your device settings aren't locked by Group Policy. The caveat is that it applies permanently until you change it back — your screen will never sleep even when you genuinely step away.</p>
+    <p>For a more nuanced approach, Windows 11 has a "Presence sensing" feature on some devices with appropriate sensors — it can detect when you've walked away and allow sleep then, but keep the screen on when you're sitting in front of it. This is found under Settings → System → Power &amp; Sleep → Screen and sleep → When nobody's looking at the screen.</p>
+
+    <h2>Windows: Battery Saver and Power Plan Settings</h2>
+    <p>If the simple Power &amp; Sleep settings aren't showing the "Never" option, you may need to check your power plan. In the Control Panel (not Settings), go to Hardware and Sound → Power Options. Choose "High Performance" or "Balanced" and then edit the plan settings to set display and sleep timeouts to Never. Some OEM power management utilities override Windows' native settings — if you have a Dell, HP, or Lenovo laptop with their power management app installed, configure the settings there as well.</p>
+
+    <h2>Mac: Energy Saver and Display Settings</h2>
+    <p>On macOS Ventura and later:</p>
+    <ul>
+      <li>Open <strong>System Settings</strong></li>
+      <li>Go to <strong>Lock Screen</strong></li>
+      <li>Set "Turn display off on battery when inactive" and "Turn display off on power adapter when inactive" to Never (or a long duration)</li>
+      <li>Also check <strong>Battery → Options</strong> and disable "Enable Power Nap"</li>
+    </ul>
+    <p>On macOS Monterey and earlier, the settings are under System Preferences → Energy Saver (or Battery). The "Prevent computer from sleeping automatically" checkbox is the key toggle.</p>
+    <p>macOS also has a built-in command-line tool: <code>caffeinate</code>. Running <code>caffeinate -d</code> in Terminal prevents the display from sleeping for as long as the Terminal window is open. <code>caffeinate -t 3600</code> prevents sleep for 3600 seconds (1 hour). This is useful for temporary sessions without changing system settings permanently.</p>
+
+    <h2>When Settings Are Locked by IT (The Corporate Laptop Problem)</h2>
+    <p>This is where many remote workers get stuck. On corporate-managed Windows devices, Group Policy can lock the Power &amp; Sleep settings — the dropdowns are grayed out, and you can't change them. On Mac, MDM (Mobile Device Management) profiles set by IT can similarly restrict energy preferences.</p>
+    <p>The practical options when settings are locked:</p>
+
+    <h3>Browser-Based Wake Lock (Most Reliable)</h3>
+    <p>The Screen Wake Lock API is a W3C web standard that allows a web page to request that the operating system suppress sleep and idle detection. Crucially, this works through the browser without requiring any system-level permissions or admin rights. IT's Group Policy controls system settings — it doesn't control what a browser tab can request via web standards.</p>
+    <p>KeepAwake uses this API, along with Picture-in-Picture video and AudioContext techniques, to prevent sleep without any installation. Open the page, click Start, and your computer won't sleep for as long as the tab is running. This works on corporate laptops where every other method is blocked.</p>
+
+    <h3>macOS caffeinate Command (Mac Only)</h3>
+    <p>On Macs, even with MDM profiles, the Terminal application and the <code>caffeinate</code> command are typically available (IT would have to specifically block Terminal access, which is uncommon). Running <code>caffeinate -d</code> in a Terminal window prevents display sleep without requiring any permissions.</p>
+
+    <h3>Presentation Mode (Windows Temporary Fix)</h3>
+    <p>Windows has a "Presentation mode" designed to prevent sleep during presentations. Right-click the battery icon in the system tray and look for "Presentation Mode" — if available on your device, it prevents sleep and notifications. This varies by Windows version and OEM configuration.</p>
+
+    <h2>Why Preventing Sleep Solves So Many Other Problems</h2>
+    <p>Sleep prevention isn't just about a screen — it's about the entire chain of consequences that follows when your OS enters idle state. Teams and Slack use the OS idle signal to flip statuses. Remote desktop (RDP, Citrix) sessions disconnect when the session is idle. VPN connections on some configurations terminate on sleep. File downloads and cloud sync operations pause. Background processes get throttled.</p>
+    <p>Preventing your computer from ever registering as idle solves all of these at once. This is why a keep-awake tool like KeepAwake — which specifically prevents OS-level idle detection — is one of those tools that seems small but has an outsized effect on a remote work day.</p>
+
+    <div class="teams-tip"><strong>Works on locked corporate laptops:</strong> <a href="/">KeepAwake</a> uses browser-level Wake Lock — no admin rights needed, no installation, works even when Group Policy locks your power settings.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

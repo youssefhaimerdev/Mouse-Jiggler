@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Keep Your Zoom Status Active During Meetings and Focus Work | KeepAwake</title>
+<meta name="description" content="Zoom's presence detection explained — how it decides you're away, and every method to stay Active including browser tools, settings tweaks, and what works on corporate devices.">
+<link rel="canonical" href="https://keepawake.app/blog/keep-zoom-status-active">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Keep Your Zoom Status Active During Meetings and Focus Work","datePublished":"June 2025","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>Zoom</span></div>
+    <div class="page-hero__label">Zoom</div>
+    <h1 class="page-hero__title">How to Keep Your Zoom Status Active During Meetings and Focus Work</h1>
+    <p class="page-hero__desc">7 min read · June 2025 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>Microsoft Teams gets most of the attention when it comes to idle status problems, but Zoom has its own presence system — and its own quirks. If you use Zoom as your primary video platform and find your status flipping to Away at inconvenient moments, here's the complete picture of how Zoom presence works and how to keep it accurate.</p>
+
+    <h2>How Zoom Determines Your Presence Status</h2>
+    <p>Zoom's status system has three automatic states: <strong>Active</strong> (green), <strong>Away</strong> (yellow), and <strong>Do Not Disturb</strong> (red). The transition from Active to Away follows a similar pattern to Teams — Zoom monitors OS-level idle time, and after a period of no keyboard or mouse input, your status changes automatically.</p>
+    <p>Zoom Desktop polls the same Windows <code>GetLastInputInfo()</code> API that Teams uses, and on macOS it reads system idle time through equivalent CoreServices APIs. The default Zoom away timeout is approximately 5 minutes — identical to Teams.</p>
+    <p>There is one important difference from Teams: Zoom's presence status is less central to daily workflows for most users. Teams presence is visible constantly in the sidebar; Zoom status is more relevant in the Zoom app itself and in integrations like Slack's Zoom status sync. But for organizations that run primarily on Zoom — particularly those using Zoom Phone, Zoom Chat, and Zoom Team Chat — the status matters just as much.</p>
+
+    <h2>Zoom's Built-In Status Controls</h2>
+    <p>Like Teams, Zoom lets you manually set your status and hold it for a defined period. To do this:</p>
+    <ul>
+      <li>Open the Zoom desktop app</li>
+      <li>Click your profile picture in the top-right</li>
+      <li>Click your current status indicator</li>
+      <li>Select <strong>Active</strong>, <strong>Away</strong>, <strong>Do Not Disturb</strong>, or set a custom status</li>
+      <li>For Do Not Disturb, you can set a duration (20 minutes, 1 hour, 2 hours, or until tomorrow)</li>
+    </ul>
+    <p>The manual status holds until the duration expires or until you manually change it back. It will not be overridden by the idle timer during the set period — which makes it useful for short breaks where you want to show Away deliberately without the status lingering.</p>
+
+    <h2>Setting a Custom Status in Zoom</h2>
+    <p>Zoom's custom status feature (available on paid plans and in many enterprise configurations) lets you set a text message that appears alongside your status indicator. This is useful for communicating context to colleagues: "On client call until 3pm" or "Focus work — Zoom chat response may be slow."</p>
+    <p>Custom statuses can be set with an expiration time, after which they auto-clear. Unlike the presence indicator itself, custom statuses don't change automatically based on idle detection — you control them entirely. Building a habit of setting a descriptive custom status before focus blocks eliminates most of the friction that comes from colleagues seeing an Away indicator and assuming you're offline.</p>
+
+    <h2>Zoom and Slack Integration: A Note on Status Sync</h2>
+    <p>Many teams use both Zoom and Slack. Zoom has a native Slack integration that can sync your Zoom status to your Slack status — when you join a Zoom call, Slack shows "In a Zoom meeting." When you're Away on Zoom, this can sync to Slack as well, depending on your workspace's integration configuration.</p>
+    <p>If your organization has this sync enabled, keeping your Zoom status active has a cascading benefit: both your Zoom and Slack presence stay accurate simultaneously. A keep-awake tool that prevents OS idle detection addresses both platforms at the OS level — since both Zoom Desktop and Slack Desktop read the same system idle APIs, one solution covers both.</p>
+
+    <h2>Zoom's Away Timeout: Can You Change It?</h2>
+    <p>Unlike Slack, Zoom does not currently expose a user-configurable away timeout in its settings. The approximately 5-minute threshold is hardcoded in the application. Your options are therefore the same as with Teams: address the OS idle timer directly rather than trying to configure the application-level threshold.</p>
+
+    <h2>The Browser-Based Solution for Zoom Users</h2>
+    <p>The approach that works consistently across Zoom, Teams, and Slack simultaneously is preventing OS idle detection entirely. When your operating system never registers idle state, no desktop application — Zoom, Teams, Slack, or any other — receives the idle signal that triggers the Away status change.</p>
+    <p>KeepAwake's Wake Lock API prevents this at the OS level. Because it works through the browser at the operating system layer rather than inside any specific application, it's platform-agnostic: one open browser tab keeps your status active on every desktop communication app you have running. There's no need for separate solutions for Zoom, Teams, and Slack — preventing OS idle covers all of them at once.</p>
+
+    <h2>During Zoom Calls: A Special Case</h2>
+    <p>When you're actually on a Zoom video call, your status is automatically set to "In a meeting" (Busy) — this is correct and appropriate. The idle status problem is most relevant when you're between calls, reading, doing focused work, or on a phone call, and Zoom flips you to Away because your hands haven't moved in five minutes.</p>
+    <p>For those gaps between meetings — the reading, thinking, and focused work that makes up the core of a knowledge worker's day — a keep-awake tool running in the background ensures Zoom (and every other platform) sees you as continuously active, without any ongoing effort on your part.</p>
+
+    <div class="teams-tip"><strong>One tool for Zoom, Teams, and Slack:</strong> <a href="/">KeepAwake</a> prevents OS idle detection, keeping your status active on all desktop communication apps simultaneously. Free, no installation.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

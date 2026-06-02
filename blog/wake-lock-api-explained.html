@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Screen Wake Lock API Explained: How Browsers Keep Your PC Awake | KeepAwake</title>
+<meta name="description" content="How the W3C Screen Wake Lock API works, which browsers support it, and why it's the most powerful browser technique for preventing computer sleep and keeping Teams active.">
+<link rel="canonical" href="https://keepawake.app/blog/wake-lock-api-explained">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The Screen Wake Lock API Explained: How Browsers Keep Your PC Awake","datePublished":"March 2025","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>Technology</span></div>
+    <div class="page-hero__label">Technology</div>
+    <h1 class="page-hero__title">The Screen Wake Lock API Explained: How Browsers Keep Your PC Awake</h1>
+    <p class="page-hero__desc">8 min read · March 2025 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>If you've used KeepAwake or researched browser-based keep-awake tools, you've probably seen the term "Wake Lock API." It's the technical foundation behind the most reliable browser method for preventing your computer from sleeping — but how it actually works is rarely explained in plain terms. Here's the full story.</p>
+
+    <h2>What Is the Screen Wake Lock API?</h2>
+    <p>The Screen Wake Lock API is a web standard published by the W3C (the organization that defines how web browsers work). It allows a web page running in a browser to make a formal request to the operating system to suppress its screen sleep and idle detection mechanisms.</p>
+    <p>In plain English: it's a standardized way for a website to say to Windows or macOS, "please don't let the screen go dark or let the system mark itself as idle while this page is active." The OS listens to this request and complies — the same way it does for Netflix when you're watching a movie, or for a video conferencing app during a call.</p>
+
+    <h2>The API Request in Practice</h2>
+    <p>From a developer's perspective, requesting a Wake Lock looks like this in JavaScript:</p>
+    <pre style="background:var(--bg-subtle);padding:16px;border-radius:8px;font-family:var(--font-mono);font-size:13px;overflow-x:auto;margin:16px 0"><code>const wakeLock = await navigator.wakeLock.request('screen');</code></pre>
+    <p>That single line, when executed in a browser that supports the API, tells the operating system to keep the screen active. The OS responds by suspending its idle and sleep timers for the requesting application. When the page releases the lock (or is closed), the OS resumes normal sleep behavior.</p>
+    <p>The key word is "screen" — the Wake Lock API currently only supports screen wake locks (as opposed to system wake locks that would prevent CPU sleep entirely). For the purpose of keeping Teams active, a screen wake lock is exactly what's needed: it prevents the display from going dark, which prevents the OS from marking the system as idle, which prevents Teams from switching to Away.</p>
+
+    <h2>Why This Works When JavaScript Mouse Events Don't</h2>
+    <p>A common misconception is that any JavaScript running on a web page can simulate mouse activity. Many simpler browser scripts dispatch <code>mousemove</code> events in JavaScript — but these events stay within the browser's own event system. They don't reach the Windows <code>GetLastInputInfo()</code> API, which only tracks genuine hardware input from physical devices.</p>
+    <p>Wake Lock bypasses this problem entirely. Instead of trying to simulate hardware input, it makes a system-level request to suppress the idle check altogether. The OS honors this request because it comes through a legitimate web standard channel — the same channel used by media players, video conferencing apps, and presentation tools.</p>
+    <p>This is a fundamental architectural difference, not just a quality difference. Mouse event simulation works around the problem; Wake Lock solves it at the source.</p>
+
+    <h2>Browser Support in 2025</h2>
+    <p><strong>Chrome and Edge (Chromium-based):</strong> Full support since Chrome 84 and Edge 84 (mid-2020). This covers the vast majority of corporate and personal Windows browsers. Chromium-based browsers are used by roughly 65% of all internet users.</p>
+    <p><strong>Firefox:</strong> Support was added in Firefox 126 (2024) behind a flag, and became default in subsequent versions. Firefox users on recent versions have full Wake Lock support.</p>
+    <p><strong>Safari:</strong> Safari on macOS added Wake Lock support in Safari 16.4 (2023). On iOS and iPadOS, support is present but behavior can vary due to power management constraints on mobile devices.</p>
+    <p>For the common corporate scenario of Windows + Chrome or Edge, Wake Lock works completely and reliably. KeepAwake detects Wake Lock availability on load and displays the status in the technique dashboard — if it shows "Active" next to Wake Lock, your OS is receiving the lock request.</p>
+
+    <h2>What Happens When Wake Lock Is Active</h2>
+    <p>When Wake Lock is successfully acquired:</p>
+    <ul>
+      <li>The OS display sleep timer is suppressed — your screen won't dim or turn off</li>
+      <li>The OS idle timer continues counting, but the system does not transition to the low-power idle state that triggers Teams' Away detection</li>
+      <li>Screen savers are suppressed</li>
+      <li>The system remains fully responsive, at normal performance levels</li>
+      <li>Teams, Slack, Zoom, and other applications that read OS presence state see the system as active</li>
+    </ul>
+    <p>The Wake Lock does not prevent manual sleep (pressing the power button, closing a laptop lid, or pressing Windows + L). It only suppresses automatic system-initiated sleep. This is intentional — it gives you control when you want to step away, while preventing the accidental idle transitions that happen during focused work.</p>
+
+    <h2>Wake Lock and Battery Life</h2>
+    <p>A reasonable concern: does keeping the screen active drain the battery faster? The answer is yes, but by less than you might expect. The screen itself is one of the larger power consumers on a laptop, but modern displays use adaptive brightness and efficient panels. The main power impact is that the display stays fully on rather than dimming.</p>
+    <p>For users on battery, KeepAwake's Wake Lock automatically releases if the tab is hidden and the battery drops below a threshold, or if the user manually reduces brightness. The goal is to keep Teams active, not to maximize screen brightness unnecessarily.</p>
+
+    <h2>The Backup Techniques: Why Five Is Better Than One</h2>
+    <p>Wake Lock is the primary technique, but KeepAwake runs four additional techniques simultaneously. This matters because:</p>
+    <ul>
+      <li>In browsers without Wake Lock support, Picture-in-Picture video provides OS-level media playback signaling that achieves a similar effect</li>
+      <li>Web Worker heartbeat timers run in a background thread immune to browser tab throttling, maintaining activity even after long backgrounding</li>
+      <li>AudioContext creates an active audio session, which many operating systems treat as ongoing activity</li>
+      <li>Canvas animation provides a baseline activity signal for environments where other techniques are restricted</li>
+    </ul>
+    <p>Together, these techniques cover the full matrix of browser versions, operating systems, and corporate configurations — so the practical result is the same regardless of your specific environment.</p>
+
+    <div class="teams-tip"><strong>See Wake Lock in action:</strong> Open <a href="/">KeepAwake</a> and click Start. The technique dashboard shows Wake Lock status in real time — green means your OS is receiving the lock request.</div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

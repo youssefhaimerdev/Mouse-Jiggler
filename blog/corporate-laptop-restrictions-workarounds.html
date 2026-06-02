@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="google-adsense-account" content="ca-pub-3379075069129713">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corporate Laptop Restrictions: What You Can and Can't Work Around | KeepAwake</title>
+<meta name="description" content="No admin rights, blocked USB ports, locked power settings — a practical guide to what's genuinely impossible on corporate devices vs what's completely fine to work around.">
+<link rel="canonical" href="https://keepawake.app/blog/corporate-laptop-restrictions-workarounds">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Corporate Laptop Restrictions: What You Can and Can't Work Around","datePublished":"November 2024","author":{"@type":"Organization","name":"KeepAwake"},"publisher":{"@type":"Organization","name":"KeepAwake","url":"https://keepawake.app"}}</script>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo"><span class="nav__logo-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke="white" stroke-width="1.5" fill="none"/></svg></span>KeepAwake</a>
+    <ul class="nav__links"><li><a href="/">Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/faq">FAQ</a></li><li><a href="/alternatives">Alternatives</a></li><li><a href="/blog" class="active">Blog</a></li></ul>
+    <div class="nav__right"><button class="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg></button><button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</nav>
+<div class="nav__mobile" id="nav-mobile"><a href="/">🖱 Jiggler Tool</a><a href="/how-it-works">⚙️ How It Works</a><a href="/faq">❓ FAQ</a><a href="/alternatives">📊 Alternatives</a><a href="/about">ℹ️ About</a><a href="/blog">📝 Blog</a></div>
+<div class="page-hero">
+  <div class="page-hero__inner">
+    <div class="breadcrumb"><a href="/blog">Blog</a><span class="breadcrumb__sep">/</span><span>How-To</span></div>
+    <div class="page-hero__label">How-To</div>
+    <h1 class="page-hero__title">Corporate Laptop Restrictions: What You Can and Can't Work Around</h1>
+    <p class="page-hero__desc">8 min read · November 2024 · By the KeepAwake team</p>
+  </div>
+</div>
+<main>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Ad</div></div>
+  <div class="section"><div class="container--narrow prose">
+
+    <p>Corporate laptops exist in a tension between IT's need to secure company data and remote workers' need to be productive. Most restrictions are there for genuine security reasons; some create unnecessary friction for legitimate work. Understanding which is which helps you solve real problems without crossing lines you shouldn't cross.</p>
+
+    <h2>What IT Departments Are Actually Trying to Protect</h2>
+    <p>Before getting into what you can and can't work around, it's worth understanding the actual threat model behind corporate device restrictions. IT teams aren't restricting your laptop to make your life difficult — they're managing three specific risks:</p>
+    <p><strong>Data exfiltration:</strong> Preventing company data from leaving the corporate environment through unauthorized channels — USB drives, personal cloud storage, unauthorized file sharing apps.</p>
+    <p><strong>Malware entry points:</strong> Preventing malicious software from being installed through unvetted software installs, unsigned scripts, or unauthorized USB devices.</p>
+    <p><strong>Compliance:</strong> In regulated industries (finance, healthcare, legal), specific technical controls are required by law or regulation — encryption standards, audit logging, data retention policies. Deviating from these has legal consequences for the company.</p>
+    <p>Restrictions that serve these goals are non-negotiable and shouldn't be worked around. Restrictions that create friction without serving these goals are often addressable through legitimate means.</p>
+
+    <h2>Restrictions You Should Not Work Around (And Why)</h2>
+    <p><strong>Disk encryption (BitLocker / FileVault):</strong> Required by most enterprise security policies and many compliance frameworks. Working around it would expose company data if the device is lost or stolen. Don't.</p>
+    <p><strong>VPN requirements for accessing internal systems:</strong> VPN channels your traffic through corporate security infrastructure, enabling monitoring and filtering that protects internal systems. Bypassing the VPN to access internal resources exposes those resources to risk. Don't.</p>
+    <p><strong>MDM / endpoint management agents:</strong> These enable remote wipe in case of theft and enforce security policies. Removing them may expose company data and will certainly violate your employment agreement. Don't.</p>
+    <p><strong>Data loss prevention (DLP) controls:</strong> Policies that prevent uploading company data to personal cloud storage or sending it to personal email exist specifically to protect proprietary information. Working around them likely violates your employment agreement and potentially applicable law. Don't.</p>
+    <p><strong>Application whitelisting:</strong> If IT has restricted which applications can install, there's a reason — usually to prevent malware vectors. Installing unapproved software may introduce security vulnerabilities you're responsible for. Get IT approval instead.</p>
+
+    <h2>Restrictions That Are Fine to Work Around</h2>
+    <p><strong>Power settings locked by Group Policy:</strong> IT often locks power settings to enforce a corporate standard (e.g., screen lock after 5 minutes for compliance). If the underlying goal is "lock the screen when the user steps away" and you need your screen to stay on while you're actively working, browser-based keep-awake tools are a legitimate solution — they keep the screen active while you're present and release when you close the browser. This doesn't defeat the screen lock policy for when you actually leave; it just prevents accidental locks during active work sessions.</p>
+    <p><strong>Browser extensions (within IT policy):</strong> Most corporate browser policies allow standard browser extensions from the Chrome Web Store or Edge Add-ons. Installing a grammar checker, ad blocker, password manager, or productivity extension from approved stores is generally fine. If your company has strict extension policies, check before installing.</p>
+    <p><strong>Using browser-based tools instead of installed applications:</strong> If an application you need isn't in IT's approved software list, there's often a browser-based equivalent that works without installation. Browser-based tools use existing browser permissions rather than system-level installation, which is a meaningful security distinction. A browser tab running KeepAwake is categorically different from installing unauthorized software.</p>
+    <p><strong>Adjusting accessible settings within your user permissions:</strong> As a standard user (non-admin), you have legitimate access to settings within your own user profile — browser preferences, Teams notification settings, accessibility options, your own user power preferences if not domain-locked. Using these is entirely within your rights as an employee.</p>
+
+    <h2>The Grey Areas</h2>
+    <p><strong>USB devices:</strong> Many corporate policies restrict USB devices to prevent data exfiltration. A USB mouse jiggler is a USB device — whether it's allowed depends on whether your company's policy restricts all USB devices or just storage devices. The only safe approach is to check. Browser-based alternatives remove this ambiguity entirely.</p>
+    <p><strong>Running scripts:</strong> PowerShell scripts in user space, without admin rights, are technically allowed on many corporate systems. But running scripts that simulate input or modify system behavior may conflict with endpoint monitoring policies even when technically executable. The grey area: technically possible, potentially flagged. Browser APIs designed for exactly this purpose (Wake Lock, PiP) are a cleaner alternative.</p>
+    <p><strong>Personal accounts on corporate devices:</strong> Accessing personal email, personal cloud storage, or personal services from a corporate device is usually technically allowed but creates a data co-mingling risk that most IT policies discourage. Keep company data in company systems and personal data on personal devices when possible.</p>
+
+    <h2>The Practical Principle</h2>
+    <p>The question to ask about any workaround: "Does this touch the actual security controls IT cares about, or does it just adjust a setting that happens to be locked for policy uniformity reasons?" Power settings locked to ensure screen lock compliance, for example, can be addressed by keeping your screen actively awake while you're present — which satisfies the underlying intent (lock when the user steps away) without defeating the control.</p>
+    <p>Browser-based tools like KeepAwake specifically exist in this legitimate space: they use standard web APIs, require no installation, make no system changes, and work within the browser's existing permission model. They solve a real remote work problem without touching anything IT has restricted for security reasons.</p>
+
+    <div class="teams-tip"><strong>The IT-safe solution:</strong> <a href="/">KeepAwake</a> is a browser tab — no installation, no admin rights, no system modifications. Compatible with any corporate device policy. <a href="/">Try it here.</a></div>
+
+    <div class="mt-32" style="display:flex;gap:12px;flex-wrap:wrap">
+      <a href="/" class="btn btn--primary">Use the Jiggler →</a>
+      <a href="/blog" class="btn btn--outline">← All Articles</a>
+    </div>
+  </div></div>
+  <div class="ad-wrap"><div class="ad-placeholder ad--leaderboard" aria-hidden="true">728 × 90 — Footer Ad</div></div>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand"><a href="/" class="nav__logo" style="display:inline-flex;margin-bottom:10px"><span class="nav__logo-icon"><svg viewBox="0 0 16 16" fill="white"><circle cx="8" cy="8" r="3"/></svg></span>KeepAwake</a><p>The free browser mouse jiggler for WFH workers. No download. No sign-up. Free forever.</p></div>
+      <div class="footer__col"><h4>Tools</h4><ul><li><a href="/">Mouse Jiggler</a></li><li><a href="/how-it-works">How It Works</a></li><li><a href="/alternatives">Compare Options</a></li></ul></div>
+      <div class="footer__col"><h4>Help</h4><ul><li><a href="/faq">FAQ</a></li><li><a href="/about">About</a></li><li><a href="/blog">Blog</a></li></ul></div>
+      <div class="footer__col"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2025 KeepAwake. Free forever.</span><span><a href="/privacy-policy">Privacy</a> · <a href="/blog">Blog</a></span></div>
+  </div>
+</footer>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYZE0RDPJ8"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-HYZE0RDPJ8',{anonymize_ip:true});</script>
+<script src="/js/main.js" defer></script>
+</body>
+</html>
